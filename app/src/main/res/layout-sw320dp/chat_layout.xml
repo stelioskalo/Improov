@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5sp"
+    android:background="@drawable/user_border"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="5sp"
+        android:layout_weight="1">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/chatimage"
+            android:src="@drawable/usericon"/>
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/chatname"
+            android:layout_marginLeft="15dp"
+            android:textSize="18sp"
+            android:textColor="#000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12:40pm"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:id="@+id/lastmessagetime"
+            />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/chatlastmessage"/>
+
+
+</LinearLayout>

@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com1032.cw2.sk00763.improov.Sessions">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Sessions"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textSize="16dp"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="280dp"
+        android:layout_height="0.2dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="#A1A1A1"></LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You can cancel any of your sessions or mark them as complete"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textSize="14dp"
+        android:textColor="#000000"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sessionlist"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>

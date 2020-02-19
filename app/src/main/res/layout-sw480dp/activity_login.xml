@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#94A9D8"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".Login">
+
+    <EditText
+        android:id="@+id/email_edit_login"
+        android:layout_width="400sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15sp"
+        android:backgroundTint="#fff"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="40sp"
+        android:background="@drawable/edittext"/>
+
+    <EditText
+        android:id="@+id/password_edit_login"
+        android:layout_width="400sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15sp"
+        android:backgroundTint="#fff"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="40sp"
+        android:background="@drawable/edittext"/>
+
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:textSize="36sp"
+        />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:background="#2E4477"
+        android:text="@string/login"
+        android:textColor="#fff"
+        android:textSize="32sp" />
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15sp"
+        android:background="@null"
+        android:text="@string/signuphere"
+        android:textColor="#fff"
+        android:textSize="20sp" />
+
+</LinearLayout>

@@ -1,0 +1,43 @@
+apply plugin: 'com.android.application'
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com1032.cw2.sk00763.improov"
+        minSdkVersion 26
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation 'com.google.firebase:firebase-core:16.0.7'
+    implementation 'com.google.firebase:firebase-auth:16.1.0'
+    implementation 'com.google.firebase:firebase-database:16.0.6'
+    implementation 'com.google.firebase:firebase-storage:16.1.0'
+    implementation 'com.github.GrenderG:Toasty:1.3.0'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:support-media-compat:26.1.0'
+    implementation 'com.android.support:animated-vector-drawable:26.1.0'
+    implementation 'com.android.support:customtabs:26.1.0'
+    implementation 'com.firebaseui:firebase-ui-database:3.1.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
+    implementation 'com.facebook.android:facebook-login:[5,6)'
+}
+apply plugin: 'com.google.gms.google-services'

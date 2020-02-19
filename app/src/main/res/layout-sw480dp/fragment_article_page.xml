@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com1032.cw2.sk00763.improov.ArticlePage"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/viewprofile"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/viewprofile"
+            android:layout_marginRight="10dp"/>
+
+        <EditText
+            android:id="@+id/searcharticle"
+            android:layout_width="390dp"
+            android:layout_height="35sp"
+            android:layout_gravity="center"
+            android:background="@drawable/search_layout"
+            android:hint="Search..."
+            android:padding="5sp" />
+
+        <ImageView
+            android:id="@+id/searchpicarticle"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/search"/>
+
+    </LinearLayout>
+
+</LinearLayout>

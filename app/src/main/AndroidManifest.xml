@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com1032.cw2.sk00763.improov">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Register"
+            android:label="@string/title_activity_register"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+
+        <!--
+             Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+
+        <activity
+            android:name=".Menu"
+            android:label="@string/title_activity_menu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".InterestSelection"
+            android:label="@string/title_activity_interest_selection"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CreateProfile"
+            android:label="@string/title_activity_edit_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuContainer"
+            android:label="@string/title_activity_menu_container"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".StudentOrCoach"
+            android:label="@string/title_activity_student_or_coach"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CreateProgram"
+            android:label="@string/title_activity_create_program"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CreateDiscussion"
+            android:label="@string/title_activity_create_discussion" />
+        <activity
+            android:name=".SeeAllDiscussions"
+            android:label="@string/title_activity_see_all_discussions" />
+        <activity
+            android:name=".ViewDiscussion"
+            android:label="@string/title_activity_view_discussion" />
+        <activity
+            android:name=".ViewProfile"
+            android:label="@string/title_activity_view_profile" />
+        <activity
+            android:name=".EditProfile"
+            android:label="@string/title_activity_edit_profile" />
+        <activity
+            android:name=".ViewProgram"
+            android:label="@string/title_activity_view_program" />
+        <activity
+            android:name=".ViewCoach"
+            android:label="@string/title_activity_view_coach" />
+        <activity
+            android:name=".RequestHourSession"
+            android:label="@string/title_activity_request_hour_session"
+            android:theme="@style/AppTheme.popup" />
+        <activity
+            android:name=".RespondToRequest"
+            android:label="@string/title_activity_view_notification"
+            android:theme="@style/AppTheme.popup" />
+
+        <service android:name=".FirebaseService">
+            android:enabled="true"
+            android:exported="true"
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".Chat"
+            android:label="@string/title_activity_chat" />
+        <activity android:name=".VideoCallActivity"></activity>
+    </application>
+
+</manifest>

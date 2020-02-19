@@ -1,0 +1,873 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="20dp"
+        card_view:cardBackgroundColor="#FBFBFB"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="#FBFBFB"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="@string/selecttopics1"
+                android:textColor="#000"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:id="@+id/header1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/header1"
+                android:gravity="center"
+                android:layout_marginTop="-10dp"
+                android:layout_marginLeft="135dp"
+                android:text="@string/selecttopics2"
+                android:textColor="#000"
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true"
+        android:layout_below="@id/header">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com1032.cw2.sk00763.improov.InterestSelection"
+            android:orientation="vertical"
+            android:background="#fff">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="237dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:padding="10dp">
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_adv"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    android:layout_marginLeft="8dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/advertising"
+                        android:id="@+id/advertising"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_marginLeft="25dp"
+                    android:id="@+id/card_entr"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_marginLeft="35dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="35dp"
+                        android:src="@drawable/entrepreneurship"
+                        android:id="@+id/entrepreneurship"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_acc"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    android:layout_marginLeft="25dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/accounting"
+                        android:id="@+id/accounting"/>
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="-20dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/advertising"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="62dp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/entr"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="65dp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/accounting"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="57dp"
+                    android:textColor="#000000"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="237dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:padding="10dp"
+                android:layout_marginTop="10dp">
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_aud"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    android:layout_marginLeft="8dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/audit"
+                        android:id="@+id/audit"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_marginLeft="25dp"
+                    android:id="@+id/card_banking"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_marginLeft="35dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="35dp"
+                        android:src="@drawable/banking"
+                        android:id="@+id/banking"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_cor"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    android:layout_marginLeft="25dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/corporatelaw"
+                        android:id="@+id/law"/>
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="-20dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/audit"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="90dp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/banking"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="130dp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/law"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="84dp"
+                    android:textColor="#000000"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="237dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:padding="10dp"
+                android:layout_marginTop="10dp">
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_fin"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    android:layout_marginLeft="8dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/finance_img_i1140"
+                        android:id="@+id/finance"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_marginLeft="25dp"
+                    android:id="@+id/card_ecom"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_marginLeft="35dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="35dp"
+                        android:src="@drawable/ecommerce"
+                        android:id="@+id/ecomm"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_eth"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    android:layout_marginLeft="25dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ethics"
+                        android:id="@+id/ethics"/>
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="-20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/finance"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="80dp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ecom"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="96dp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ethics"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="105dp"
+                    android:textColor="#000000"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="237dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:padding="10dp"
+                android:layout_marginTop="10dp">
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_hr"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    android:layout_marginLeft="8dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/hr"
+                        android:id="@+id/hr"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_marginLeft="25dp"
+                    android:id="@+id/card_insurance"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_marginLeft="35dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="35dp"
+                        android:src="@drawable/insurance"
+                        android:id="@+id/insurance"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_inv"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    android:layout_marginLeft="25dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/investing"
+                        android:id="@+id/investing"/>
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="-20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hr"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="38dp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/insurance"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="65dp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/investing"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="100dp"
+                    android:textColor="#000000"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="237dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:padding="10dp"
+                android:layout_marginTop="10dp">
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_log"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    android:layout_marginLeft="8dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/logistics"
+                        android:id="@+id/logistics"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_marginLeft="25dp"
+                    android:id="@+id/card_mark"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_marginLeft="35dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="35dp"
+                        android:src="@drawable/marketing"
+                        android:id="@+id/marketing"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_neg"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    android:layout_marginLeft="25dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/negotiation"
+                        android:id="@+id/negotiation"/>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="-20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/logistics"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="75dp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/marketing"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="100dp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/negotiation"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="85dp"
+                    android:textColor="#000000"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="237dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:padding="10dp"
+                android:layout_marginTop="10dp">
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_real"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    android:layout_marginLeft="8dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/realestate"
+                        android:id="@+id/realestate"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_marginLeft="25dp"
+                    android:id="@+id/card_rec"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_marginLeft="35dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="35dp"
+                        android:src="@drawable/records"
+                        android:id="@+id/records"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_sale"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    android:layout_marginLeft="25dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/sales"
+                        android:id="@+id/sales"/>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="-20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/realestate"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="58dp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/records"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="65dp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sales"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="95dp"
+                    android:textColor="#000000"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="237dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:padding="10dp"
+                android:layout_marginTop="10dp">
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_start"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    android:layout_marginLeft="8dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/startup"
+                        android:id="@+id/startup"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_marginLeft="25dp"
+                    android:id="@+id/card_tech"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_marginLeft="35dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="35dp"
+                        android:src="@drawable/tech"
+                        android:id="@+id/tech"/>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_trad"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    android:layout_marginLeft="25dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/trading"
+                        android:id="@+id/trading"/>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="-20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/startup"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="82dp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tech"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="100dp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trading"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="100dp"
+                    android:textColor="#000000"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="237dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:padding="10dp"
+                android:layout_marginTop="10dp">
+
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_writ"
+                    android:layout_width="160dp"
+                    android:layout_height="200dp"
+                    card_view:cardCornerRadius="2dp"
+                    android:layout_marginLeft="8dp"
+                    card_view:cardBackgroundColor="#ffffff"
+                    >
+
+                    <ImageView
+                        android:layout_width="130dp"
+                        android:layout_height="280dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/writing"
+                        android:id="@+id/writing"/>
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="-20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/writing"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="83dp"
+                    android:textColor="#000000"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/nooftopics"
+        android:gravity="center"
+        android:layout_marginLeft="240dp"
+        android:layout_marginBottom="20dp"
+        >
+
+        <TextView
+            android:id="@+id/nooftopics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@string/zero"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/curve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@id/nooftopics"
+            android:text="@string/slash"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/five"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@+id/curve"
+            android:text="@string/five"
+            android:textColor="#000"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/footer_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/footer"
+        android:gravity="center"
+        android:layout_marginLeft="130dp"
+        android:layout_marginBottom="35dp"
+        android:background="@drawable/nextshape"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/next"
+            android:textColor="#fff"
+            android:textSize="24dp"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "514643707219",
+    "firebase_url": "https://improov-6972e.firebaseio.com",
+    "project_id": "improov-6972e",
+    "storage_bucket": "improov-6972e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514643707219:android:2f6640cb716360ea624da6",
+        "android_client_info": {
+          "package_name": "com1032.cw2.sk00763.improov"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "514643707219-r72hmk0mlreiadb0htkfklkpim0hhdlk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com1032.cw2.sk00763.improov",
+            "certificate_hash": "7b1c187a87c4b9211d64349f5b34daabd64ed7f1"
+          }
+        },
+        {
+          "client_id": "514643707219-cta9qhg8qp7lgdq9mpdq5snnt0fo9dh3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG_8uSKL50QQfvW0sxx-zomVxsaO56yJg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "514643707219-cta9qhg8qp7lgdq9mpdq5snnt0fo9dh3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

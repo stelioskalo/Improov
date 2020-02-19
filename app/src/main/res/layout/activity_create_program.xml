@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com1032.cw2.sk00763.improov.CreateProgram"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/skiporcancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skip"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_alignParentLeft="true"
+            android:textColor="#3253F9"
+            />
+        <TextView
+            android:id="@+id/createprogram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="#3253F9"
+            android:layout_alignParentEnd="true"
+            />
+    </RelativeLayout>
+
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_adv"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        card_view:cardCornerRadius="2dp"
+        android:layout_marginLeft="8dp"
+        card_view:cardBackgroundColor="#ffffff"
+        android:layout_gravity="center"
+        >
+    <ImageView
+        android:id="@+id/progampic"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/programpic"
+        android:layout_gravity="center"/>
+    </android.support.v7.widget.CardView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Program Name:"
+        android:layout_marginTop="30dp"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        android:textColor="#000"
+        android:textStyle="bold"/>
+    <EditText
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/programname"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description:"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"/>
+    <EditText
+        android:gravity="top|left"
+        android:layout_width="350dp"
+        android:layout_height="400dp"
+        android:id="@+id/programdesc"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Program Main Topic:"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#000"
+        android:layout_gravity="center"
+        android:textStyle="bold"/>
+
+    <Spinner
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#3253F9"
+        android:textColorHint="#000000"
+        android:id="@+id/topicspinner"
+        android:hint="Sports"
+        android:textColor="#000000"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rate for 1 hour session:"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textColor="#000"
+        android:textStyle="bold"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="$"
+            android:textColor="#000"/>
+
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/programhourrate"
+            android:inputType="number"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rate for monthly session:"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textColor="#000"
+        android:textStyle="bold"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="$"
+            android:textColor="#000"/>
+
+        <EditText
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/programmonthrate"
+            android:inputType="number"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>

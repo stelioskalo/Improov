@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com1032.cw2.sk00763.improov.StudentOrCoach"
+    android:orientation="horizontal"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            >
+
+
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_student"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="30dp"
+                android:layout_marginLeft="8dp"
+                card_view:cardBackgroundColor="#3253F9"
+                android:layout_marginBottom="20dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Student"
+                    android:textSize="40dp"
+                    android:textColor="#000"
+                    android:padding="8dp"/>
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OR"
+                android:textSize="30dp"
+                android:padding="8dp"
+                android:textColor="#000"
+                android:layout_gravity="center"/>
+
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_coach"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="30dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp"
+                card_view:cardBackgroundColor="#94A9D8"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Coach"
+                    android:textSize="40dp"
+                    android:textColor="#000"
+                    android:padding="8dp"/>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/nextfromuser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/footer"
+        android:gravity="center"
+        android:layout_marginLeft="-100dp"
+        android:layout_marginTop="690dp"
+        android:background="@drawable/next"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/next"
+            android:textColor="#000"
+            android:textSize="20dp"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

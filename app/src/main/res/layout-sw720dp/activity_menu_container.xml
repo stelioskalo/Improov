@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+        android:id="@+id/nav"
+        android:layout_width="match_parent"
+        android:name="com1032.cw2.sk00763.improov.Navigation"
+        android:layout_height="140dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        tools:layout="@layout/fragment_navigation"  />
+
+    <RelativeLayout
+        android:id="@+id/display"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/nav"
+        android:layout_alignParentStart="true">
+
+    </RelativeLayout>
+</RelativeLayout>
