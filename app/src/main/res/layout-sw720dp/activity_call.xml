@@ -67,8 +67,8 @@ s
             />
 
         <ImageView
-            android:layout_width="190dp"
-            android:layout_height="190dp"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
             android:id="@+id/declinevideocall"
             android:src="@drawable/decline" />
     </LinearLayout>

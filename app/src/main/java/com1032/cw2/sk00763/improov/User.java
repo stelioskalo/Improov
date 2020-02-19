@@ -24,13 +24,16 @@ public class User {
     private String topicpic3 = null;
     private String topicpic4 = null;
     private String topicpic5 = null;
+    private String calling = null;
+    private String ringing = null;
 
     public User(){
         super();
     }
 
     public User(String name, String surname, String bio, String qualifications, String image, String email, String id, String topic1, String topic2, String topic3,
-                String topic4, String topic5, String firsttime, String usertype, String topicpic1, String topicpic2, String topicpic3, String topicpic4, String topicpic5) {
+                String topic4, String topic5, String firsttime, String usertype, String topicpic1, String topicpic2, String topicpic3, String topicpic4, String topicpic5,
+                String calling, String ringing) {
         this.name = name;
         this.surname = surname;
         this.bio = bio;
@@ -50,6 +53,8 @@ public class User {
         this.topicpic3 = topicpic3;
         this.topicpic4 = topicpic4;
         this.topicpic5 = topicpic5;
+        this.calling = calling;
+        this.ringing = ringing;
     }
 
     public String getName() {
@@ -126,6 +131,14 @@ public class User {
 
     public String getQualifications() {
         return this.qualifications;
+    }
+
+    public String getCalling() {
+        return this.calling;
+    }
+
+    public String getRinging() {
+        return this.ringing;
     }
 }
 

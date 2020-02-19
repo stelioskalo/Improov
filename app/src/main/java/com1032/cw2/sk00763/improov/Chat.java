@@ -123,6 +123,7 @@ public class Chat extends Activity {
                 Intent intent = new Intent(Chat.this, VideoCallActivity.class);
                 intent.putExtra("receiver", userid);
                 intent.putExtra("sender", m_user.getUid());
+                intent.putExtra("from", "chat");
                 startActivity(intent);
             }
         });

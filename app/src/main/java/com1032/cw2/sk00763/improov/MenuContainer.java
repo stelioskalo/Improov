@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+
 /**
  * The MenuContainer activity simply holds the layout of the menu.
  */
@@ -29,6 +31,9 @@ public class MenuContainer extends AppCompatActivity {
 
     FragmentTransaction m_Transaction;
     TextView m_hometext = null;
+    private FirebaseAuth m_auth = null;
+    private FirebaseUser m_user = null;
+    private DatabaseReference m_ref = null;
 
 
     /**
@@ -44,13 +49,41 @@ public class MenuContainer extends AppCompatActivity {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_menu_container);
         m_hometext = (TextView) findViewById(R.id.hometext);
-
+        m_auth = FirebaseAuth.getInstance();
+        m_user = m_auth.getCurrentUser();
+        m_ref = FirebaseDatabase.getInstance().getReference();
 
         ArticlePage articleFragment = new ArticlePage();
         m_Transaction = getFragmentManager().beginTransaction();
         m_hometext.setTextColor(Color.parseColor("#000000"));
         m_Transaction.replace(R.id.display, articleFragment);
         m_Transaction.commit();
+
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+
+                String userId = m_user.getUid();
+                m_ref.child("user").child(userId).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        User user = dataSnapshot.getValue(User.class);
+                        if (user.getRinging() != null) {
+                            Intent intent = new Intent(MenuContainer.this, VideoCallActivity.class);
+                            intent.putExtra("receiver", m_user.getUid());
+                            intent.putExtra("sender", user.getRinging());
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        };
+        thread.start();
 
     }
 }
