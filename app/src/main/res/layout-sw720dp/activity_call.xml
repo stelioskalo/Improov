@@ -14,29 +14,29 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:text="Calling..."
-        android:textSize="20dp"
+        android:textSize="38dp"
         android:textColor="#ffffff"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
         android:src="@drawable/usericon"
         android:layout_gravity="center"
         android:id="@+id/videocallimage"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="60dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="130dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name"
             android:textColor="#ffffff"
-            android:textSize="20dp"
+            android:textSize="42dp"
             android:id="@+id/videocallname"
             android:textStyle="bold"
             android:layout_marginRight="20dp"/>
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:text="Surname"
             android:textColor="#ffffff"
-            android:textSize="20dp"
+            android:textSize="42dp"
             android:textStyle="bold"
             android:id="@+id/videocallsurname"/>
     </LinearLayout>
@@ -55,11 +55,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal"
-        android:layout_marginTop="80dp">
-
+        android:layout_marginTop="270dp">
+s
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="190dp"
+            android:layout_height="190dp"
             android:src="@drawable/accept"
             android:id="@+id/acceptvideocall"
             android:layout_marginRight="30dp"
@@ -67,8 +67,8 @@
             />
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="190dp"
+            android:layout_height="190dp"
             android:id="@+id/declinevideocall"
             android:src="@drawable/decline" />
     </LinearLayout>
