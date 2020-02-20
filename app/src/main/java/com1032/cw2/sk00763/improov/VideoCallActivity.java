@@ -1,17 +1,17 @@
 package com1032.cw2.sk00763.improov;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageInstaller;
+import android.opengl.GLSurfaceView;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
+import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -19,103 +19,65 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.opentok.android.OpentokError;
+import com.opentok.android.Publisher;
+import com.opentok.android.PublisherKit;
+import com.opentok.android.Session;
+import com.opentok.android.Stream;
+import com.opentok.android.Subscriber;
 
-import java.io.IOException;
-import java.util.HashMap;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
-
-public class VideoCallActivity extends AppCompatActivity {
-    private ImageView image = null;
-    private TextView name = null;
-    private TextView surname = null;
-    private ImageView accept = null;
-    private ImageView decline = null;
+public class VideoCallActivity extends AppCompatActivity implements Session.SessionListener, PublisherKit.PublisherListener {
+    private static String API_KEY = "46516972";
+    private static String SESSION_ID = "1_MX40NjUxNjk3Mn5-MTU4MjEzNzU0MTcwOH4vWjMxK1Q5MkoySzB5bkQvZmNZMTF3ZTZ-fg";
+    private static String TOKEN = "T1==cGFydG5lcl9pZD00NjUxNjk3MiZzaWc9NTJiYWNhYTExNGM2NTA2NzY3NDJhMzVlMDNmNzU0ZDU0Y2NmNzcyODpzZXNzaW9uX2lkPTFfTVg0ME5qVXhOamszTW41LU1UVTRNakV6TnpVME1UY3dPSDR2V2pNeEsxUTVNa295U3pCNWJrUXZabU5aTVRGM1pUWi1mZyZjcmVhdGVfdGltZT0xNTgyMTM3NjIwJm5vbmNlPTAuODQ3NTY1NTE1ODgzOTQ1OSZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNTg0NzI2MDE5JmluaXRpYWxfbGF5b3V0X2NsYXNzX2xpc3Q9";
+    private static final String LOG_TAG = VideoCallActivity.class.getSimpleName();
+    private static final int RC_SETTINGS_SCREEN_PERM = 123;
+    private static final int RC_VIDEO_APP_PERM = 124;
+    private Session mSession;
+    private FrameLayout mPublisherViewContainer;
+    private FrameLayout mSubscriberViewContainer;
+    private Publisher mPublisher;
+    private Subscriber mSubscriber;
+    private ImageView close = null;
     private FirebaseAuth m_auth = null;
     private FirebaseUser m_user = null;
     private DatabaseReference m_ref = null;
-    private String senderId = null;
-    private String senderimage = null;
-    private String sendername = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_call);
-
-        image = findViewById(R.id.videocallimage);
-        name = findViewById(R.id.videocallname);
-        surname = findViewById(R.id.videocallsurname);
-        accept = findViewById(R.id.acceptvideocall);
-        decline = findViewById(R.id.declinevideocall);
-
+        setContentView(R.layout.activity_video_call);
         m_auth = FirebaseAuth.getInstance();
         m_user = m_auth.getCurrentUser();
         m_ref = FirebaseDatabase.getInstance().getReference();
 
-        senderId = m_auth.getCurrentUser().getUid();
-
-        loadUserData();
-
-        decline.setOnClickListener(new View.OnClickListener() {
+        close = findViewById(R.id.endchat);
+        close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                declineCall();
+                closeCall();
             }
         });
-    }
-
-    public void loadUserData() {
-        final String userId = getIntent().getStringExtra("receiver");
 
         m_ref.child("user").child(m_user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                if(dataSnapshot.hasChild("ringing")) {
-                    accept.setVisibility(View.VISIBLE);
-                    String senderId = user.getRinging();
-                    m_ref.child("user").child(senderId).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            User sender = dataSnapshot.getValue(User.class);
-                            name.setText(sender.getName());
-                            surname.setText(sender.getSurname());
-
-                            try {
-                                image.setImageBitmap(decodeFromFirebaseBase64(sender.getImage()));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
+                if(user.getCalling().matches("") && user.getRinging().matches("")){
+                    if (mPublisher != null) {
+                        mPublisher.destroy();
+                    }
+                    if (mSubscriber != null) {
+                        mSubscriber.destroy();
+                    }
+                    mSession.disconnect();
+                    Intent intent = new Intent(VideoCallActivity.this, MenuContainer.class);
+                    startActivity(intent);
+                    finish();
                 }
-                else if(dataSnapshot.hasChild("calling")){
-                    String receiverId = user.getCalling();
-                    m_ref.child("user").child(receiverId).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            User receiver = dataSnapshot.getValue(User.class);
-                            name.setText(receiver.getName());
-                            surname.setText(receiver.getSurname());
 
-                            try {
-                                image.setImageBitmap(decodeFromFirebaseBase64(receiver.getImage()));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                }
             }
 
             @Override
@@ -124,72 +86,34 @@ public class VideoCallActivity extends AppCompatActivity {
             }
         });
 
-        }
-
-    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
-        byte[] decodedByteArray = Base64.decode(image, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+        requestPermissions();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        final String receiverId = getIntent().getStringExtra("receiver");
-        final String senderId = getIntent().getStringExtra("sender");
-        m_ref.child("user").child(receiverId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                final User user = dataSnapshot.getValue(User.class);
-                if(!dataSnapshot.hasChild("calling") && !dataSnapshot.hasChild("ringing")) {
-                    m_ref.child("user").child(senderId).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            final User user2 = dataSnapshot.getValue(User.class);
-                            final HashMap<String, Object> callingInfo = new HashMap<>();
-                            callingInfo.put("calling", receiverId);
-
-                            m_ref.child("user").child(senderId).updateChildren(callingInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        final HashMap<String, Object> ringingInfo = new HashMap<>();
-                                        ringingInfo.put("ringing", senderId);
-                                        m_ref.child("user").child(receiverId).updateChildren(ringingInfo);
-                                    }
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    public void declineCall(){
+    public void closeCall() {
 
         m_ref.child("user").child(m_user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                if(user.getRinging() != null){
+                if (!user.getRinging().matches("")) {
                     final String caller = user.getRinging();
-                    m_ref.child("user").child(m_user.getUid()).child("ringing").removeValue();
+                    m_ref.child("user").child(m_user.getUid()).child("ringing").setValue("");
+                    m_ref.child("user").child(m_user.getUid()).child("picked").removeValue();
                     m_ref.child("user").child(caller).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             User user2 = dataSnapshot.getValue(User.class);
-                            m_ref.child("user").child(caller).child("calling").removeValue();
-                            finish();
+                            m_ref.child("user").child(caller).child("calling").setValue("");
+                            m_ref.child("user").child(caller).child("picked").removeValue();
+                            if (mPublisher != null) {
+                                mPublisher.destroy();
+                            }
+                            if (mSubscriber != null) {
+                                mSubscriber.destroy();
+                            }
+                            mSession.disconnect();
+                            Intent intent = new Intent(VideoCallActivity.this, MenuContainer.class);
+                            startActivity(intent);
                         }
 
                         @Override
@@ -197,16 +121,25 @@ public class VideoCallActivity extends AppCompatActivity {
 
                         }
                     });
-                }
-                else if(user.getCalling() != null){
+                } else if (!user.getCalling().matches("")) {
                     final String receiver = user.getCalling();
-                    m_ref.child("user").child(m_user.getUid()).child("calling").removeValue();
+                    m_ref.child("user").child(m_user.getUid()).child("calling").setValue("");
+                    m_ref.child("user").child(m_user.getUid()).child("picked").removeValue();
                     m_ref.child("user").child(receiver).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             User user2 = dataSnapshot.getValue(User.class);
-                            m_ref.child("user").child(receiver).child("ringing").removeValue();
-                            finish();
+                            m_ref.child("user").child(receiver).child("ringing").setValue("");
+                            m_ref.child("user").child(receiver).child("picked").removeValue();
+                            if (mPublisher != null) {
+                                mPublisher.destroy();
+                            }
+                            if (mSubscriber != null) {
+                                mSubscriber.destroy();
+                            }
+                            mSession.disconnect();
+                            Intent intent = new Intent(VideoCallActivity.this, MenuContainer.class);
+                            startActivity(intent);
                         }
 
                         @Override
@@ -222,5 +155,87 @@ public class VideoCallActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @AfterPermissionGranted(RC_VIDEO_APP_PERM)
+    private void requestPermissions() {
+        String[] perms = {Manifest.permission.INTERNET, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO};
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            // initialize view objects from your layout
+            mPublisherViewContainer = (FrameLayout) findViewById(R.id.publisher_container);
+            mSubscriberViewContainer = (FrameLayout) findViewById(R.id.subscriber_container);
+
+            mSession = new Session.Builder(this, API_KEY, SESSION_ID).build();
+            mSession.setSessionListener(this);
+            mSession.connect(TOKEN);
+
+            // initialize and connect to the session
+
+
+        } else {
+            EasyPermissions.requestPermissions(this, "This app needs access to your camera and mic to make video calls", RC_VIDEO_APP_PERM, perms);
+        }
+    }
+
+    @Override
+    public void onConnected(Session session) {
+        mPublisher = new Publisher.Builder(this).build();
+        mPublisher.setPublisherListener(this);
+
+        mPublisherViewContainer.addView(mPublisher.getView());
+
+        if (mPublisher.getView() instanceof GLSurfaceView) {
+            ((GLSurfaceView) mPublisher.getView()).setZOrderOnTop(true);
+        }
+
+        mSession.publish(mPublisher);
+    }
+
+    @Override
+    public void onDisconnected(Session session) {
+
+    }
+
+    @Override
+    public void onStreamReceived(Session session, Stream stream) {
+        if (mSubscriber == null) {
+            mSubscriber = new Subscriber.Builder(this, stream).build();
+            mSession.subscribe(mSubscriber);
+            mSubscriberViewContainer.addView(mSubscriber.getView());
+        }
+    }
+
+    @Override
+    public void onStreamDropped(Session session, Stream stream) {
+        if (mSubscriber != null) {
+            mSubscriber = null;
+            mSubscriberViewContainer.removeAllViews();
+        }
+    }
+
+    @Override
+    public void onError(Session session, OpentokError opentokError) {
+
+    }
+
+    @Override
+    public void onStreamCreated(PublisherKit publisherKit, Stream stream) {
+
+    }
+
+    @Override
+    public void onStreamDestroyed(PublisherKit publisherKit, Stream stream) {
+
+    }
+
+    @Override
+    public void onError(PublisherKit publisherKit, OpentokError opentokError) {
+
     }
 }

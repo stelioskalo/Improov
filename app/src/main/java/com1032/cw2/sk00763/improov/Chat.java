@@ -120,7 +120,7 @@ public class Chat extends Activity {
         video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Chat.this, VideoCallActivity.class);
+                Intent intent = new Intent(Chat.this, CallActivity.class);
                 intent.putExtra("receiver", userid);
                 intent.putExtra("sender", m_user.getUid());
                 intent.putExtra("from", "chat");

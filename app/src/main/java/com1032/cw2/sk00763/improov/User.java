@@ -138,7 +138,7 @@ public class User {
     }
 
     public String getRinging() {
-        return this.ringing;
+        return ringing;
     }
 }
 

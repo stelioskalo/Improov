@@ -8,10 +8,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
-import android.view.MenuItem;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,8 +20,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.io.IOException;
 
 /**
  * The MenuContainer activity simply holds the layout of the menu.
@@ -68,8 +65,9 @@ public class MenuContainer extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         User user = dataSnapshot.getValue(User.class);
-                        if (user.getRinging() != null) {
-                            Intent intent = new Intent(MenuContainer.this, VideoCallActivity.class);
+                        if (!user.getRinging().matches("")) {
+                            Log.d("empikame", "nai");
+                            Intent intent = new Intent(MenuContainer.this, CallActivity.class);
                             intent.putExtra("receiver", m_user.getUid());
                             intent.putExtra("sender", user.getRinging());
                             startActivity(intent);

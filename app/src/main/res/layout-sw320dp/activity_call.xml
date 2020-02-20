@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com1032.cw2.sk00763.improov.VideoCallActivity"
+    tools:context="com1032.cw2.sk00763.improov.CallActivity"
     android:background="#02273A">
 
     <TextView

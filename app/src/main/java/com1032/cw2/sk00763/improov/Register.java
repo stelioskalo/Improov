@@ -194,6 +194,8 @@ public class Register extends AppCompatActivity {
                 reference.child("user").child(fUser.getUid()).child("id").setValue(fUser.getUid());
                 reference.child("user").child(fUser.getUid()).child("surname").setValue(lastname);
                 reference.child("user").child(fUser.getUid()).child("firsttime").setValue("yes");
+                reference.child("user").child(fUser.getUid()).child("calling").setValue("");
+                reference.child("user").child(fUser.getUid()).child("ringing").setValue("");
             }
 
             @Override

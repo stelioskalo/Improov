@@ -3,7 +3,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com1032.cw2.sk00763.improov"
-        minSdkVersion 26
+        minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -35,6 +35,8 @@ dependencies {
     implementation 'com.android.support:animated-vector-drawable:26.1.0'
     implementation 'com.android.support:customtabs:26.1.0'
     implementation 'com.firebaseui:firebase-ui-database:3.1.0'
+    implementation 'com.opentok.android:opentok-android-sdk:2.15.3'
+    implementation 'pub.devrel:easypermissions:0.4.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     compile 'de.hdodenhof:circleimageview:2.0.0'
