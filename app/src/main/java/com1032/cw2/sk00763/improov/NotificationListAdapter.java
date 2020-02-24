@@ -108,6 +108,38 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                     }
                 });
                 break;
+            case "acceptedRequest":
+                dbRef.child("user").child(m_notifications.get(position).getFrom()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        User user = dataSnapshot.getValue(User.class);
+                        holder.m_about.setText("Your requested session with " + user.getName() + " " + user.getSurname() + " "
+                                + "for their " + "'" + m_notifications.get(position).getProgram() + "'" + " program on "
+                                + m_notifications.get(position).getDate() + " has been accepted.");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                break;
+            case "rejectedRequest":
+                dbRef.child("user").child(m_notifications.get(position).getFrom()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        User user = dataSnapshot.getValue(User.class);
+                        holder.m_about.setText("Your requested session with " + user.getName() + " " + user.getSurname() + " "
+                                + "for their " + "'" + m_notifications.get(position).getProgram() + "'" + " program on "
+                                + m_notifications.get(position).getDate() + " has been rejected.");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                break;
             default:
                 // code block
                 break;

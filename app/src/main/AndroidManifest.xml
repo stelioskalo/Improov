@@ -20,6 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.wallet.api.enabled"
+            android:value="true" />
+
         <activity
             android:name=".Register"
             android:label="@string/title_activity_register"
@@ -107,20 +112,15 @@
             android:name=".RespondToRequest"
             android:label="@string/title_activity_view_notification"
             android:theme="@style/AppTheme.popup" />
-
-        <service android:name=".FirebaseService">
-            android:enabled="true"
-            android:exported="true"
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-
         <activity
             android:name=".Chat"
             android:label="@string/title_activity_chat" />
         <activity android:name=".CallActivity" />
-        <activity android:name=".VideoCallActivity"></activity>
+        <activity android:name=".VideoCallActivity" />
+        <activity android:name=".AudioCallActivity" />
+        <activity
+            android:name=".ReadyToPayActivity"
+            android:theme="@style/AppTheme.popup" />
     </application>
 
 </manifest>

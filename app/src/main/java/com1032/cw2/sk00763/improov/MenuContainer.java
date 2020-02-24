@@ -70,6 +70,7 @@ public class MenuContainer extends AppCompatActivity {
                             Intent intent = new Intent(MenuContainer.this, CallActivity.class);
                             intent.putExtra("receiver", m_user.getUid());
                             intent.putExtra("sender", user.getRinging());
+                            intent.putExtra("for", dataSnapshot.child("call").getValue().toString());
                             startActivity(intent);
                         }
                     }
@@ -82,6 +83,39 @@ public class MenuContainer extends AppCompatActivity {
             }
         };
         thread.start();
+
+        Thread thread2 = new Thread() {
+            @Override
+            public void run() {
+
+                String userId = m_user.getUid();
+                m_ref.child("user").child(userId).child("notification").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                            Notification notification  = ds.getValue(Notification.class);
+                            if (notification.getType().matches("acceptedRequest") && notification.getPending().matches("yes")) {
+                                Log.d("empikame", "nai");
+                                Intent intent = new Intent(MenuContainer.this, ReadyToPayActivity.class);
+                                intent.putExtra("from", notification.getFrom());
+                                intent.putExtra("program", notification.getProgram());
+                                intent.putExtra("date", notification.getDate());
+                                intent.putExtra("hour", notification.getHour());
+                                intent.putExtra("notification", notification.getNotificationId());
+                                startActivity(intent);
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        };
+        thread2.start();
 
     }
 }

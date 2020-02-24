@@ -101,7 +101,6 @@ public class RespondToRequest extends Activity {
                 int minute = mcurrentTime.get(Calendar.MINUTE);
                 Date currentTime = Calendar.getInstance().getTime();
 
-                String messageId = RandomNumber.generateUID();
                 String id = getIntent().getStringExtra("id");
 
                 if(pending.matches("yes")){
@@ -115,7 +114,9 @@ public class RespondToRequest extends Activity {
                     hashMap.put("time", String.valueOf(hour) + ":" + String.valueOf(minute));
                     hashMap.put("date", currentTime.toString());
                     hashMap.put("senderName", m_user.getEmail());
-                    m_ref.child("message").push().setValue(hashMap);
+
+                    notifyUserAccept();
+
                     finish();
                 }
             }
@@ -127,6 +128,7 @@ public class RespondToRequest extends Activity {
                 String id = getIntent().getStringExtra("id");
                 if(pending.matches("yes")){
                     m_ref.child("user").child(m_user.getUid()).child("notification").child(id).child("pending").setValue("no");
+                    notifyUserReject();
                     finish();
                 }
             }
@@ -139,6 +141,40 @@ public class RespondToRequest extends Activity {
         int height = dm.heightPixels;
 
         getWindow().setLayout((int) (width * 0.8), (int) (height * 0.8));
+    }
+
+    public void notifyUserAccept(){
+        Calendar mcurrentTime = Calendar.getInstance();
+        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+        int minute = mcurrentTime.get(Calendar.MINUTE);
+        Date currentTime = Calendar.getInstance().getTime();
+
+        String notificationId = RandomNumber.generateUID();
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("type").setValue("acceptedRequest");
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("from").setValue(m_user.getUid());
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("date").setValue(currentTime.toString());
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("hour").setValue(String.valueOf(hour) + ":" + String.valueOf(minute));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("program").setValue(getIntent().getStringExtra("program"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("dateofrequest").setValue(getIntent().getStringExtra("date"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("notificationId").setValue(notificationId);
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("pending").setValue("yes");
+    }
+
+    public void notifyUserReject(){
+        Calendar mcurrentTime = Calendar.getInstance();
+        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+        int minute = mcurrentTime.get(Calendar.MINUTE);
+        Date currentTime = Calendar.getInstance().getTime();
+
+        String notificationId = RandomNumber.generateUID();
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("type").setValue("rejectedRequest");
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("from").setValue(m_user.getUid());
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("date").setValue(currentTime.toString());
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("hour").setValue(String.valueOf(hour) + ":" + String.valueOf(minute));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("program").setValue(getIntent().getStringExtra("program"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("dateofrequest").setValue(getIntent().getStringExtra("date"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("notificationId").setValue(notificationId);
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("pending").setValue(notificationId);
     }
 
     public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {

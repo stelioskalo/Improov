@@ -74,8 +74,16 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.Search
         });
 
         if (lastMessages.get(position) != null) {
-            holder.lastMessage.setText(lastMessages.get(position).getMessage());
-            holder.lasttime.setText(lastMessages.get(position).getTime());
+            String lastmessage = lastMessages.get(lastMessages.size() - 1).getMessage();
+            if(lastmessage.length() > 120){
+                String shortened = lastmessage.substring(0,120) + "......";
+                holder.lastMessage.setText(shortened);
+            }
+            else {
+                holder.lastMessage.setText(lastmessage);
+            }
+
+            holder.lasttime.setText(lastMessages.get(lastMessages.size() - 1).getTime());
         } else {
             holder.lastMessage.setText("");
             holder.lasttime.setText("");

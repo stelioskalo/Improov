@@ -81,8 +81,15 @@ public class CallActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isComplete()){
-                                        Intent intent = new Intent(CallActivity.this, VideoCallActivity.class);
-                                        startActivity(intent);
+                                        String videoOrAudio = getIntent().getStringExtra("for");
+                                        if(videoOrAudio.matches("videocall")){
+                                            Intent intent = new Intent(CallActivity.this, VideoCallActivity.class);
+                                            startActivity(intent);
+                                        }
+                                        else {
+                                            Intent intent = new Intent(CallActivity.this, AudioCallActivity.class);
+                                            startActivity(intent);
+                                        }
                                     }
                                 }
                             });
@@ -173,10 +180,16 @@ public class CallActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot.hasChild("picked")){
-                        Log.d("eperasen", "nai");
                         mediaPlayer.stop();
-                        Intent intent = new Intent(CallActivity.this, VideoCallActivity.class);
-                        startActivity(intent);
+                        String videoOrAudio = getIntent().getStringExtra("for");
+                        if(videoOrAudio.matches("videocall")){
+                            Intent intent = new Intent(CallActivity.this, VideoCallActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            Intent intent = new Intent(CallActivity.this, AudioCallActivity.class);
+                            startActivity(intent);
+                        }
                     }
             }
 
@@ -202,7 +215,8 @@ public class CallActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 final User user = dataSnapshot.getValue(User.class);
-                if(dataSnapshot.child("calling").getValue().toString().matches("") && dataSnapshot.child("ringing").getValue().toString().matches("")) {
+                if(dataSnapshot.child("calling").getValue().toString().matches("") &&
+                        dataSnapshot.child("ringing").getValue().toString().matches("")) {
                     mediaPlayer.start();
                     m_ref.child("user").child(senderId).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -212,6 +226,10 @@ public class CallActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
+                                        if(getIntent().getStringExtra("for").matches("audiocall") ||
+                                                getIntent().getStringExtra("for").matches("videocall")){
+                                            m_ref.child("user").child(receiverId).child("call").setValue(getIntent().getStringExtra("for"));
+                                        }
                                         m_ref.child("user").child(receiverId).child("ringing").setValue(senderId);
                                     }
                                 }
@@ -243,6 +261,7 @@ public class CallActivity extends AppCompatActivity {
                 if(!user.getRinging().matches("")){
                     final String caller = user.getRinging();
                     m_ref.child("user").child(m_user.getUid()).child("ringing").setValue("");
+                    m_ref.child("user").child(m_user.getUid()).child("call").removeValue();
                     m_ref.child("user").child(caller).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -267,6 +286,7 @@ public class CallActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             User user2 = dataSnapshot.getValue(User.class);
                             m_ref.child("user").child(receiver).child("ringing").setValue("");
+                            m_ref.child("user").child(receiver).child("call").removeValue();
                             mediaPlayer.stop();
                             finish();
                         }

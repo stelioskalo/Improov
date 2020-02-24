@@ -104,7 +104,7 @@ public class Notifications extends Fragment implements NotificationListAdapter.N
 
     @Override
     public void onNotificationClick(int position) {
-        if(notificationList.get(position).getType().matches("requestForSession1hr")) {
+        if(notificationList.get(position).getType().matches("requestForSession1hr") || notificationList.get(position).getType().matches("requestForMonthSession")) {
             Intent i = new Intent(getActivity(), RespondToRequest.class);
             i.putExtra("from", notificationList.get(position).getFrom());
             i.putExtra("notificationId", notificationList.get(position).getNotificationId());
