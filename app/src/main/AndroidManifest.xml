@@ -121,6 +121,14 @@
         <activity
             android:name=".ReadyToPayActivity"
             android:theme="@style/AppTheme.popup" />
+        <activity
+            android:name=".ConfirmationActivity"
+            android:label="@string/title_activity_confirmation"
+            android:theme="@style/AppTheme.popup"/>
+        <activity
+            android:name=".RetrievePayment"
+            android:label="@string/title_activity_retrieve_payment"
+            android:theme="@style/AppTheme.popup"/>
     </application>
 
 </manifest>

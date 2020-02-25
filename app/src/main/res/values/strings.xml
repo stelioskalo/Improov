@@ -101,4 +101,6 @@
     <string name="title_activity_view_notification">ViewNotification</string>
     <string name="title_activity_chat">Chat</string>
     <string name="title_activity_ready_to_pay">ReadyToPayActivity</string>
+    <string name="title_activity_confirmation">ConfirmationActivity</string>
+    <string name="title_activity_retrieve_payment">RetrievePayment</string>
 </resources>

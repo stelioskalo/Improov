@@ -1,19 +1,21 @@
 package com1032.cw2.sk00763.improov;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,11 +25,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
 
-public class ViewProfile extends Activity implements PopupMenu.OnMenuItemClickListener {
+public class ViewProfile extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private TextView back = null;
     private ImageView pic = null;
@@ -175,6 +175,26 @@ public class ViewProfile extends Activity implements PopupMenu.OnMenuItemClickLi
                 Intent i5 = new Intent(ViewProfile.this, Login.class);
                 startActivity(i5);
                 finish();
+                return true;
+            case R.id.item6:
+                m_ref.child("user").child(m_user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.hasChild("payments")){
+                            Intent i6 = new Intent(ViewProfile.this, RetrievePayment.class);
+                            startActivity(i6);
+                        }
+                        else {
+                            Toast.makeText(ViewProfile.this, "You have no payments", Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
                 return true;
             default:
                 return false;

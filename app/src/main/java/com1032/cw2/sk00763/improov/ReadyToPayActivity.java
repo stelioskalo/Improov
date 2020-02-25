@@ -1,12 +1,17 @@
 package com1032.cw2.sk00763.improov;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.Base64;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,11 +22,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 public class ReadyToPayActivity extends AppCompatActivity {
     private TextView program = null;
@@ -31,6 +42,12 @@ public class ReadyToPayActivity extends AppCompatActivity {
     private FirebaseAuth m_auth = null;
     private FirebaseUser m_user = null;
     private DatabaseReference m_ref = null;
+    private CardView pay =  null;
+    private String paymentAmount = null;
+    private static final int PAYPAL_REQUEST_CODE = 1;
+    private static PayPalConfiguration config = new PayPalConfiguration()
+            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+            .clientId(PayPalConfig.PAYPAL_CLIENT_ID);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +58,7 @@ public class ReadyToPayActivity extends AppCompatActivity {
         paragraph = findViewById(R.id.payparagraph);
         instructions = findViewById(R.id.payinstruct);
         image = findViewById(R.id.payimage);
+        pay = findViewById(R.id.pay);
         m_auth = FirebaseAuth.getInstance();
         m_user = m_auth.getCurrentUser();
         m_ref = FirebaseDatabase.getInstance().getReference();
@@ -72,7 +90,16 @@ public class ReadyToPayActivity extends AppCompatActivity {
             }
         });
 
-        m_ref.child("user").child(m_user.getUid()).child("notification").child(getIntent().getStringExtra("notification")).child("pending").setValue("no");
+        Intent intent = new Intent(this, PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+        startService(intent);
+
+        pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getPayment();
+            }
+        });
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -88,7 +115,63 @@ public class ReadyToPayActivity extends AppCompatActivity {
         return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 
-    private static JSONObject getBaseRequest() throws JSONException {
-        return new JSONObject().put("apiVersion", 2).put("apiVersionMinor", 0);
+    public void getPayment(){
+        paymentAmount = getIntent().getStringExtra("topay");
+        PayPalPayment payment = new PayPalPayment(new BigDecimal(String.valueOf(paymentAmount)), "GBP", "Paying coach",
+                PayPalPayment.PAYMENT_INTENT_SALE);
+
+        Intent intent = new Intent(this, PaymentActivity.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+
+        startActivityForResult(intent, PAYPAL_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        stopService(new Intent(this, PayPalService.class));
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PAYPAL_REQUEST_CODE) {
+
+            //If the result is OK i.e. user has not canceled the payment
+            if (resultCode == Activity.RESULT_OK) {
+                //Getting the payment confirmation
+                PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+
+                //if confirmation is not null
+                if (confirm != null) {
+                    try {
+                        //Getting the payment details
+                        JSONObject jsonObject = new JSONObject(confirm.toJSONObject().toString());
+                        String paymentDetails = jsonObject.getJSONObject("response").getString("state");
+
+                        if(paymentDetails.matches("approved")){
+                            String paymentid = RandomNumber.generateUID();
+                            m_ref.child("payments").child(paymentid).child("customer").setValue(m_user.getUid());
+                            m_ref.child("payments").child(paymentid).child("coach").setValue(getIntent().getStringExtra("from"));
+                            m_ref.child("payments").child(paymentid).child("howmuch").setValue(paymentAmount);
+                            m_ref.child("payments").child(paymentid).child("coachpaid").setValue("no");
+                            m_ref.child("user").child(getIntent().getStringExtra("from")).child("payments").child(paymentid).setValue(true);
+                            m_ref.child("user").child(m_user.getUid()).child("notification").child(getIntent().getStringExtra("notification")).child("pending").setValue("no");
+                        }
+                        Log.i("paymentExample", paymentDetails);
+
+                        //Starting a new activity for the payment details and also putting the payment details with intent
+                        startActivity(new Intent(this, MenuContainer.class));
+
+                    } catch (JSONException e) {
+                        Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
+                    }
+                }
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                Log.i("paymentExample", "The user canceled.");
+            } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
+                Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
+            }
+        }
     }
 }

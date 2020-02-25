@@ -13,12 +13,16 @@ public class Notification {
     private String program = null;
     private String type = null;
     private String pending = null;
+    private String programid = null;
+    private String howlong = null;
+    private Long topay = null;
 
     public Notification() {
 
     }
 
-    public Notification(String notificationId, String date, String dateofrequest, String from, String hour, String program, String type, String pending) {
+    public Notification(String notificationId, String date, String dateofrequest, String from, String hour, String program, String type, String pending,
+                        String programid, String howlong, Long topay) {
         this.notificationId = notificationId;
         this.date = date;
         this.dateofrequest = dateofrequest;
@@ -27,6 +31,9 @@ public class Notification {
         this.program = program;
         this.type = type;
         this.pending = pending;
+        this.programid = programid;
+        this.howlong = howlong;
+        this.topay = topay;
     }
 
     public String getNotificationId() {
@@ -59,5 +66,17 @@ public class Notification {
 
     public String getPending() {
         return this.pending;
+    }
+
+    public String getProgramid() {
+        return this.programid;
+    }
+
+    public String getHowlong() {
+        return this.howlong;
+    }
+
+    public Long getTopay() {
+        return this.topay;
     }
 }

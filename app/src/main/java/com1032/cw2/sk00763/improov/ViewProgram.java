@@ -83,7 +83,9 @@ public class ViewProgram extends Activity {
                 Intent i = new Intent(ViewProgram.this, RequestHourSession.class);
                 i.putExtra("coachid", getIntent().getStringExtra("coachid"));
                 i.putExtra("programname", name.getText().toString());
+                i.putExtra("programid", getIntent().getStringExtra("programid"));
                 i.putExtra("type", "hourSession");
+                i.putExtra("hourpay", getIntent().getStringExtra("hourpay"));
                 startActivity(i);
                 layout.setBackgroundColor(Color.parseColor("#A1A1A1"));
             }
@@ -95,7 +97,9 @@ public class ViewProgram extends Activity {
                 Intent i = new Intent(ViewProgram.this, RequestHourSession.class);
                 i.putExtra("coachid", getIntent().getStringExtra("coachid"));
                 i.putExtra("programname", name.getText().toString());
+                i.putExtra("programid", getIntent().getStringExtra("programid"));
                 i.putExtra("type", "monthSession");
+                i.putExtra("monthpay", getIntent().getStringExtra("monthpay"));
                 startActivity(i);
                 layout.setBackgroundColor(Color.parseColor("#A1A1A1"));
             }

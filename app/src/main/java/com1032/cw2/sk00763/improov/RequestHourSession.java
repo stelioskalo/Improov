@@ -110,6 +110,7 @@ public class RequestHourSession extends Activity {
                                 String notificationId = RandomNumber.generateUID();
                                 String notificationId2 = RandomNumber.generateUID();
                                 String coachId = getIntent().getStringExtra("coachid");
+                                String topay = getIntent().getStringExtra("hourpay");
 
                                 m_ref.child("user").child(coachId).child("notification").child(notificationId).child("from").setValue(m_user.getUid());
                                 m_ref.child("user").child(coachId).child("notification").child(notificationId).child("type").setValue("requestForSession1hr");
@@ -118,7 +119,10 @@ public class RequestHourSession extends Activity {
                                 m_ref.child("user").child(coachId).child("notification").child(notificationId).child("program").setValue(getIntent().getStringExtra("programname"));
                                 m_ref.child("user").child(coachId).child("notification").child(notificationId).child("dateofrequest").setValue(currentDate.toString());
                                 m_ref.child("user").child(coachId).child("notification").child(notificationId).child("notificationId").setValue(notificationId);
+                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("programid").setValue(getIntent().getStringExtra("programid"));
+                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("howlong").setValue("hour");
                                 m_ref.child("user").child(coachId).child("notification").child(notificationId).child("pending").setValue("yes");
+                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("topay").setValue(topay);
 
                                 m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("type").setValue("requestedSession");
                                 m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("from").setValue(coachId);
@@ -127,7 +131,9 @@ public class RequestHourSession extends Activity {
                                 m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("program").setValue(getIntent().getStringExtra("programname"));
                                 m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("dateofrequest").setValue(currentDate.toString());
                                 m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("notificationId").setValue(notificationId2);
+                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("programid").setValue(getIntent().getStringExtra("programid"));
                                 m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("pending").setValue("yes");
+                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("topay").setValue(topay);
                             }
 
                             @Override
@@ -146,6 +152,7 @@ public class RequestHourSession extends Activity {
                                 String notificationId = RandomNumber.generateUID();
                                 String notificationId2 = RandomNumber.generateUID();
                                 String coachId = getIntent().getStringExtra("coachid");
+                                String topay = getIntent().getStringExtra("monthpay");
 
                                 m_ref.child("user").child(coachId).child("notification").child(notificationId).child("from").setValue(m_user.getUid());
                                 m_ref.child("user").child(coachId).child("notification").child(notificationId).child("type").setValue("requestForMonthSession");
@@ -154,7 +161,9 @@ public class RequestHourSession extends Activity {
                                 m_ref.child("user").child(coachId).child("notification").child(notificationId).child("program").setValue(getIntent().getStringExtra("programname"));
                                 m_ref.child("user").child(coachId).child("notification").child(notificationId).child("dateofrequest").setValue(currentDate.toString());
                                 m_ref.child("user").child(coachId).child("notification").child(notificationId).child("notificationId").setValue(notificationId);
+                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("programid").setValue(getIntent().getStringExtra("programid"));
                                 m_ref.child("user").child(coachId).child("notification").child(notificationId).child("pending").setValue("yes");
+                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("topay").setValue(topay);
 
                                 m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("type").setValue("requestedSession");
                                 m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("from").setValue(coachId);
@@ -162,8 +171,10 @@ public class RequestHourSession extends Activity {
                                 m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("hour").setValue(time.getText().toString());
                                 m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("program").setValue(getIntent().getStringExtra("programname"));
                                 m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("dateofrequest").setValue(currentDate.toString());
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("notificationId").setValue(notificationId2);
+                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("programid").setValue(getIntent().getStringExtra("programid"));
+                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId).child("howlong").setValue("month");
                                 m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("pending").setValue("yes");
+                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("topay").setValue(topay);
                             }
 
                             @Override

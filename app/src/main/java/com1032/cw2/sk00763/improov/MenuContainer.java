@@ -102,6 +102,8 @@ public class MenuContainer extends AppCompatActivity {
                                 intent.putExtra("date", notification.getDate());
                                 intent.putExtra("hour", notification.getHour());
                                 intent.putExtra("notification", notification.getNotificationId());
+                                intent.putExtra("programid", notification.getProgramid());
+                                intent.putExtra("topay", String.valueOf(notification.getTopay()));
                                 startActivity(intent);
                             }
                         }

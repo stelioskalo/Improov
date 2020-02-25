@@ -265,6 +265,9 @@ public class DiscussionAndCoach extends Fragment implements DiscussionListAdapte
         Intent i  = new Intent(getActivity(), ViewProgram.class);
         i.putExtra("id", programList.get(position).getProgramId());
         i.putExtra("coachid", programList.get(position).getCoach());
+        i.putExtra("programid", programList.get(position).getProgramId());
+        i.putExtra("monthpay", programList.get(position).getMonthRate());
+        i.putExtra("hourpay", programList.get(position).getHourRate());
         startActivity(i);
     }
 

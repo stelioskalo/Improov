@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:id="@+id/confirm"
+    tools:context="com1032.cw2.sk00763.improov.CreateDiscussion">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Are you sure you have entered the correct email?"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:textColor="#000000"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textAlignment="center"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:text="YES"
+                android:id="@+id/confirmemail"
+                android:textColor="#8BDE74"
+                android:layout_marginRight="80dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textAlignment="center"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:id="@+id/rejectemail"
+                android:layout_height="wrap_content"
+                android:text="NO"
+                android:textColor="#E74444"/>
+
+        </LinearLayout>
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            android:text="DONE"
+            android:visibility="gone"
+            android:textStyle="bold"
+            android:id="@+id/donepayout"
+            android:layout_height="wrap_content"
+            android:textColor="#8BDE74"/>
+
+    </LinearLayout>
+
+</LinearLayout>

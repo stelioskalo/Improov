@@ -157,7 +157,18 @@ public class RespondToRequest extends Activity {
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("program").setValue(getIntent().getStringExtra("program"));
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("dateofrequest").setValue(getIntent().getStringExtra("date"));
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("notificationId").setValue(notificationId);
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("programid").setValue(getIntent().getStringExtra("programid"));
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("pending").setValue("yes");
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("topay").setValue(getIntent().getStringExtra("topay"));
+
+        String howlong = getIntent().getStringExtra("howlong");
+
+        if(howlong.matches("hour")){
+            m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("howlong").setValue("hour");
+        }
+        else {
+            m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("howlong").setValue("month");
+        }
     }
 
     public void notifyUserReject(){
@@ -174,7 +185,18 @@ public class RespondToRequest extends Activity {
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("program").setValue(getIntent().getStringExtra("program"));
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("dateofrequest").setValue(getIntent().getStringExtra("date"));
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("notificationId").setValue(notificationId);
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("programid").setValue(getIntent().getStringExtra("programid"));
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("pending").setValue(notificationId);
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("topay").setValue(getIntent().getStringExtra("topay"));
+
+        String howlong = getIntent().getStringExtra("howlong");
+
+        if(howlong.matches("hour")){
+            m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("howlong").setValue("hour");
+        }
+        else {
+            m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("howlong").setValue("month");
+        }
     }
 
     public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {

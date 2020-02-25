@@ -113,6 +113,9 @@ public class Notifications extends Fragment implements NotificationListAdapter.N
             i.putExtra("program", notificationList.get(position).getProgram());
             i.putExtra("pending", notificationList.get(position).getPending());
             i.putExtra("id", notificationList.get(position).getNotificationId());
+            i.putExtra("programid", notificationList.get(position).getProgramid());
+            i.putExtra("howlong", notificationList.get(position).getHowlong());
+            i.putExtra("topay", notificationList.get(position).getTopay());
             startActivity(i);
         }
     }
