@@ -102,7 +102,7 @@ public class RequestHourSession extends Activity {
             public void onClick(View view) {
                 if (!requestDate.before(currentDate) && !time.getText().toString().matches("")) {
                     if(getIntent().getStringExtra("type").matches("hourSession")) {
-                        Toast.makeText(RequestHourSession.this, "Pompa", Toast.LENGTH_LONG)
+                        Toast.makeText(RequestHourSession.this, "Session Requested!", Toast.LENGTH_LONG)
                                 .show();
                         m_ref.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -144,7 +144,7 @@ public class RequestHourSession extends Activity {
                         finish();
                     }
                     else {
-                        Toast.makeText(RequestHourSession.this, "Pompa", Toast.LENGTH_LONG)
+                        Toast.makeText(RequestHourSession.this, "Session Requested!", Toast.LENGTH_LONG)
                                 .show();
                         m_ref.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override

@@ -103,4 +103,5 @@
     <string name="title_activity_ready_to_pay">ReadyToPayActivity</string>
     <string name="title_activity_confirmation">ConfirmationActivity</string>
     <string name="title_activity_retrieve_payment">RetrievePayment</string>
+    <string name="title_activity_view_session">ViewSession</string>
 </resources>

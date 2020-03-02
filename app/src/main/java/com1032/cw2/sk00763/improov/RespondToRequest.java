@@ -150,6 +150,8 @@ public class RespondToRequest extends Activity {
         Date currentTime = Calendar.getInstance().getTime();
 
         String notificationId = RandomNumber.generateUID();
+        String sessionId = RandomNumber.generateUID();
+
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("type").setValue("acceptedRequest");
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("from").setValue(m_user.getUid());
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("date").setValue(currentTime.toString());
@@ -160,9 +162,18 @@ public class RespondToRequest extends Activity {
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("programid").setValue(getIntent().getStringExtra("programid"));
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("pending").setValue("yes");
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("topay").setValue(getIntent().getStringExtra("topay"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("session").setValue(sessionId);
+
+
+        m_ref.child("session").child(sessionId).child("coach").setValue(m_user.getUid());
+        m_ref.child("session").child(sessionId).child("student").setValue(getIntent().getStringExtra("from"));
+        m_ref.child("session").child(sessionId).child("program").setValue(getIntent().getStringExtra("programid"));
+        m_ref.child("session").child(sessionId).child("paid").setValue("no");
+        m_ref.child("session").child(sessionId).child("sessionId").setValue(sessionId);
+        m_ref.child("session").child(sessionId).child("date").setValue(getIntent().getStringExtra("date"));
+        m_ref.child("session").child(sessionId).child("howlong").setValue(getIntent().getStringExtra("howlong"));
 
         String howlong = getIntent().getStringExtra("howlong");
-
         if(howlong.matches("hour")){
             m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("howlong").setValue("hour");
         }

@@ -124,11 +124,14 @@
         <activity
             android:name=".ConfirmationActivity"
             android:label="@string/title_activity_confirmation"
-            android:theme="@style/AppTheme.popup"/>
+            android:theme="@style/AppTheme.popup" />
         <activity
             android:name=".RetrievePayment"
             android:label="@string/title_activity_retrieve_payment"
-            android:theme="@style/AppTheme.popup"/>
+            android:theme="@style/AppTheme.popup" />
+        <activity
+            android:name=".ViewSession"
+            android:label="@string/title_activity_view_session"></activity>
     </application>
 
 </manifest>

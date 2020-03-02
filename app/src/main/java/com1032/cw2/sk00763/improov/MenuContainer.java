@@ -93,18 +93,21 @@ public class MenuContainer extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                            Notification notification  = ds.getValue(Notification.class);
-                            if (notification.getType().matches("acceptedRequest") && notification.getPending().matches("yes")) {
-                                Log.d("empikame", "nai");
-                                Intent intent = new Intent(MenuContainer.this, ReadyToPayActivity.class);
-                                intent.putExtra("from", notification.getFrom());
-                                intent.putExtra("program", notification.getProgram());
-                                intent.putExtra("date", notification.getDate());
-                                intent.putExtra("hour", notification.getHour());
-                                intent.putExtra("notification", notification.getNotificationId());
-                                intent.putExtra("programid", notification.getProgramid());
-                                intent.putExtra("topay", String.valueOf(notification.getTopay()));
-                                startActivity(intent);
+                            Notification notification = ds.getValue(Notification.class);
+                            if (notification.getType() != null) {
+                                if (notification.getType().matches("acceptedRequest") && notification.getPending().matches("yes")) {
+                                    Log.d("empikame", "nai");
+                                    Intent intent = new Intent(MenuContainer.this, ReadyToPayActivity.class);
+                                    intent.putExtra("from", notification.getFrom());
+                                    intent.putExtra("program", notification.getProgram());
+                                    intent.putExtra("date", notification.getDate());
+                                    intent.putExtra("hour", notification.getHour());
+                                    intent.putExtra("notification", notification.getNotificationId());
+                                    intent.putExtra("programid", notification.getProgramid());
+                                    intent.putExtra("topay", notification.getTopay());
+                                    intent.putExtra("session", notification.getSession());
+                                    startActivity(intent);
+                                }
                             }
                         }
 

@@ -3,6 +3,8 @@ package com1032.cw2.sk00763.improov;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.app.Activity;
+import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -11,6 +13,11 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +38,7 @@ public class ConfirmationActivity extends Activity {
     private TextView reject = null;
     private TextView done = null;
     private ProgressDialog progressDialog;
+    private DatabaseReference m_ref = null;
     public static final MediaType MEDIA_TYPE = MediaType.parse("application/json");
 
     @Override
@@ -41,6 +49,8 @@ public class ConfirmationActivity extends Activity {
         confirm = findViewById(R.id.confirmemail);
         reject = findViewById(R.id.rejectemail);
         done = findViewById(R.id.donepayout);
+
+        m_ref = FirebaseDatabase.getInstance().getReference();
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +96,7 @@ public class ConfirmationActivity extends Activity {
         final OkHttpClient client = new OkHttpClient();
         JSONObject postData = new JSONObject();
         FirebaseAuth m_auth = FirebaseAuth.getInstance();
-        FirebaseUser m_user = m_auth.getCurrentUser();
+        final FirebaseUser m_user = m_auth.getCurrentUser();
         Log.d("userid", m_user.getUid().toString());
 
         try {
@@ -118,6 +128,24 @@ public class ConfirmationActivity extends Activity {
                     switch(responseCode){
                         case 200:
                             Snackbar.make(findViewById(R.id.confirm), "Payout Successful!", Snackbar.LENGTH_LONG).show();
+                            m_ref.child("payments").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    double total = 0;
+                                    for(DataSnapshot ds: dataSnapshot.getChildren()) {
+                                        Payments payment = ds.getValue(Payments.class);
+                                        Log.d("gamoto", payment.getCoachpaid().toString());
+                                        if(payment.getCoachpaid().matches("no") && payment.getCoach().matches(m_user.getUid())){
+                                            m_ref.child("payments").child(ds.getKey()).child("coachpaid").setValue("yes");
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
                             break;
                         case 500:
                             Snackbar.make(findViewById(R.id.confirm), "Could not complete payout", Snackbar.LENGTH_LONG).show();
