@@ -30,6 +30,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/options"
+                android:onClick="popup"
                 android:layout_alignParentEnd="true"
                 android:id="@+id/sessionoptions"/>
 

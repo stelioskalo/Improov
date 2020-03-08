@@ -49,6 +49,7 @@ public class DiscussionAndCoach extends Fragment implements DiscussionListAdapte
     private ProgramListAdapter m_adapter2 = null;
     List<Discussion> topicList = new ArrayList<Discussion>();
     List<Program> programList = null;
+    List<String> discussionIds = null;
     private int counter1 = 0;
     private EditText search = null;
     private ImageView searchpic = null;
@@ -73,6 +74,7 @@ public class DiscussionAndCoach extends Fragment implements DiscussionListAdapte
         search = (EditText)m_View.findViewById(R.id.searchdiscussion);
         searchpic = (ImageView)m_View.findViewById(R.id.searchpic);
         programList = new ArrayList<Program>();
+        discussionIds = new ArrayList<String>();
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         coaches.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +163,7 @@ public class DiscussionAndCoach extends Fragment implements DiscussionListAdapte
               @Override
               public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 topicList.clear();
+                discussionIds.clear();
                 list1.removeAllViews();
                   final User user = dataSnapshot.getValue(User.class);
                   counter1 = 0;
@@ -173,15 +176,16 @@ public class DiscussionAndCoach extends Fragment implements DiscussionListAdapte
                                       || d.getTopic().matches(user.getTopic4()) || d.getTopic().matches(user.getTopic5())) {
                                   if(searchtype == 2 && d.getAbout().toLowerCase().contains(lowerCaseSearch)) {
                                       topicList.add(d);
+                                      discussionIds.add(ds.getKey());
                                   }
                                   else if(searchtype == 1) {
                                       topicList.add(d);
+                                      discussionIds.add(ds.getKey());
                                   }
 
                               }
                           }
                           Log.d("DAMESADA", String.valueOf(topicList.size()));
-                          Collections.shuffle(topicList);
                           m_adapter = new DiscussionListAdapter(getActivity().getApplicationContext(), topicList, DiscussionAndCoach.this);
                           list1.setAdapter(m_adapter);
                       }
@@ -250,7 +254,11 @@ public class DiscussionAndCoach extends Fragment implements DiscussionListAdapte
     @Override
     public void onDiscussionClick(int position) {
         Intent i = new Intent(getActivity(), ViewDiscussion.class);
-        i.putExtra("id", topicList.get(position).getDiscussionId());
+        i.putExtra("about", topicList.get(position).getAbout());
+        i.putExtra("creatorId", topicList.get(position).getCreatorid());
+        i.putExtra("creatorname", topicList.get(position).getCreatorname());
+        i.putExtra("topic", topicList.get(position).getTopic());
+        i.putExtra("discussionId", discussionIds.get(position));
         startActivity(i);
     }
 

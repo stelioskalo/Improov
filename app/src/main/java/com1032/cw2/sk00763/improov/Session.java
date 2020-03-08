@@ -12,12 +12,15 @@ public class Session {
     private String sessionId = null;
     private String date = null;
     private String howlong = null;
+    private String markcompletecoach = null;
+    private String markcompletestudent = null;
 
     public Session() {
 
     }
 
-    public Session(String coach, String student, String program, String paid, String sessionId, String date, String howlong) {
+    public Session(String coach, String student, String program, String paid, String sessionId, String date, String howlong, String markcompletecoach,
+                   String markcompletestudent) {
         this.coach = coach;
         this.student = student;
         this.program = program;
@@ -25,6 +28,8 @@ public class Session {
         this.sessionId = sessionId;
         this.date = date;
         this.howlong = howlong;
+        this.markcompletecoach = markcompletecoach;
+        this.markcompletestudent = markcompletestudent;
     }
 
     public String getCoach() {
@@ -53,5 +58,13 @@ public class Session {
 
     public String getHowlong() {
         return this.howlong;
+    }
+
+    public String getMarkcompletecoach() {
+        return this.markcompletecoach;
+    }
+
+    public String getMarkcompletestudent() {
+        return this.markcompletestudent;
     }
 }

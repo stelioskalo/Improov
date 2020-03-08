@@ -55,8 +55,7 @@ public class Sessions extends Fragment implements SessionListAdapter.SessionActi
             }
         });
         list.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-
-        populateList();
+        //populateList();
 
         return m_View;
     }
@@ -64,7 +63,7 @@ public class Sessions extends Fragment implements SessionListAdapter.SessionActi
     public void populateList(){
         list.removeAllViews();
         sessions.clear();
-        m_ref.child("session").addListenerForSingleValueEvent(new ValueEventListener() {
+        m_ref.child("session").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
@@ -84,6 +83,11 @@ public class Sessions extends Fragment implements SessionListAdapter.SessionActi
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        populateList();
+    }
 
     @Override
     public void onSessionClick(int position) {
@@ -92,7 +96,7 @@ public class Sessions extends Fragment implements SessionListAdapter.SessionActi
         intent.putExtra("coach", sessions.get(position).getCoach());
         intent.putExtra("student", sessions.get(position).getStudent());
         intent.putExtra("paid", sessions.get(position).getPaid());
-        intent.putExtra("program", sessions.get(position).getProgram());
+        intent.putExtra("programid", sessions.get(position).getProgram());
         intent.putExtra("date", sessions.get(position).getDate());
         intent.putExtra("howlong", sessions.get(position).getHowlong());
         startActivity(intent);

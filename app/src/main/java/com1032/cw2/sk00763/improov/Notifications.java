@@ -110,12 +110,44 @@ public class Notifications extends Fragment implements NotificationListAdapter.N
             i.putExtra("notificationId", notificationList.get(position).getNotificationId());
             i.putExtra("type", notificationList.get(position).getType());
             i.putExtra("date", notificationList.get(position).getDate());
+            i.putExtra("hour", notificationList.get(position).getHour());
             i.putExtra("program", notificationList.get(position).getProgram());
             i.putExtra("pending", notificationList.get(position).getPending());
             i.putExtra("id", notificationList.get(position).getNotificationId());
             i.putExtra("programid", notificationList.get(position).getProgramid());
             i.putExtra("howlong", notificationList.get(position).getHowlong());
             i.putExtra("topay", notificationList.get(position).getTopay());
+            startActivity(i);
+        }
+        else if(notificationList.get(position).getType().matches("cancelSession")){
+            Intent i = new Intent(getActivity(), RespondToRequest.class);
+            i.putExtra("from", notificationList.get(position).getFrom());
+            i.putExtra("notificationId", notificationList.get(position).getNotificationId());
+            i.putExtra("type", notificationList.get(position).getType());
+            i.putExtra("date", notificationList.get(position).getDate());
+            i.putExtra("hour", notificationList.get(position).getHour());
+            i.putExtra("program", notificationList.get(position).getProgram());
+            i.putExtra("pending", notificationList.get(position).getPending());
+            i.putExtra("id", notificationList.get(position).getNotificationId());
+            i.putExtra("programid", notificationList.get(position).getProgramid());
+            i.putExtra("howlong", notificationList.get(position).getHowlong());
+            i.putExtra("topay", notificationList.get(position).getTopay());
+            startActivity(i);
+        }
+        else if(notificationList.get(position).getType().matches("requestForChange")){
+            Intent i = new Intent(getActivity(), RespondToRequest.class);
+            i.putExtra("from", notificationList.get(position).getFrom());
+            i.putExtra("notificationId", notificationList.get(position).getNotificationId());
+            i.putExtra("type", notificationList.get(position).getType());
+            i.putExtra("date", notificationList.get(position).getDate());
+            i.putExtra("hour", notificationList.get(position).getHour());
+            i.putExtra("program", notificationList.get(position).getProgram());
+            i.putExtra("pending", notificationList.get(position).getPending());
+            i.putExtra("id", notificationList.get(position).getNotificationId());
+            i.putExtra("programid", notificationList.get(position).getProgramid());
+            i.putExtra("howlong", notificationList.get(position).getHowlong());
+            i.putExtra("topay", notificationList.get(position).getTopay());
+            i.putExtra("session", notificationList.get(position).getSession());
             startActivity(i);
         }
     }

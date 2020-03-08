@@ -23,6 +23,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -37,6 +40,7 @@ public class ConfirmationActivity extends Activity {
     private TextView confirm = null;
     private TextView reject = null;
     private TextView done = null;
+    private TextView message = null;
     private ProgressDialog progressDialog;
     private DatabaseReference m_ref = null;
     public static final MediaType MEDIA_TYPE = MediaType.parse("application/json");
@@ -49,13 +53,24 @@ public class ConfirmationActivity extends Activity {
         confirm = findViewById(R.id.confirmemail);
         reject = findViewById(R.id.rejectemail);
         done = findViewById(R.id.donepayout);
+        message = findViewById(R.id.confirmation);
+        final String forwhat = getIntent().getStringExtra("for");
 
         m_ref = FirebaseDatabase.getInstance().getReference();
+
+        if(forwhat.matches("cancel")){
+            message.setText("Are you sure you want to cancel your session?");
+        }
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                payoutRequest();
+                if(forwhat.matches("retrieve")){
+                    payoutRequest();
+                }
+                else if(forwhat.matches("cancel")){
+                    cancelSession();
+                }
                 done.setVisibility(View.VISIBLE);
                 confirm.setVisibility(View.GONE);
                 reject.setVisibility(View.GONE);
@@ -127,7 +142,6 @@ public class ConfirmationActivity extends Activity {
                 if(response.isSuccessful()){
                     switch(responseCode){
                         case 200:
-                            Snackbar.make(findViewById(R.id.confirm), "Payout Successful!", Snackbar.LENGTH_LONG).show();
                             m_ref.child("payments").addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -158,6 +172,32 @@ public class ConfirmationActivity extends Activity {
                 progressDialog.dismiss();
             }
         });
+    }
+
+    public void cancelSession(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        Calendar mcurrentTime = Calendar.getInstance();
+        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+        int minute = mcurrentTime.get(Calendar.MINUTE);
+        Date currentTime = Calendar.getInstance().getTime();
+
+        reference.child("session").child(getIntent().getStringExtra("session")).removeValue();
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("date", getIntent().getStringExtra("date"));
+        hashMap.put("dateofrequest", currentTime.toString());
+        hashMap.put("from", getIntent().getStringExtra("user"));
+        hashMap.put("hour", String.valueOf(hour) + ":" + String.valueOf(minute));
+        hashMap.put("howlong", getIntent().getStringExtra("howlong"));
+        hashMap.put("pending", "");
+        hashMap.put("program", "");
+        hashMap.put("programid", getIntent().getStringExtra("program"));
+        hashMap.put("session", "");
+        hashMap.put("topay", "");
+        hashMap.put("type", "cancelSession");
+        hashMap.put("notificationId", "");
+
+        reference.child("user").child(getIntent().getStringExtra("user")).child("notification").push().setValue(hashMap);
     }
 
 }

@@ -56,7 +56,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     @Override
     public void onBindViewHolder(final NotificationListAdapter.SearchViewHolder holder, final int position) {
         //set the event details
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         holder.m_date.setText(m_notifications.get(position).getDate());
         String type = m_notifications.get(position).getType();
         switch (type) {
@@ -132,6 +132,142 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                         holder.m_about.setText("Your requested session with " + user.getName() + " " + user.getSurname() + " "
                                 + "for their " + "'" + m_notifications.get(position).getProgram() + "'" + " program on "
                                 + m_notifications.get(position).getDate() + " has been rejected.");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                break;
+            case "cancelSession":
+                dbRef.child("user").child(m_notifications.get(position).getFrom()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        final User user = dataSnapshot.getValue(User.class);
+                        dbRef.child("program").child(m_notifications.get(position).getProgramid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Program program = dataSnapshot.getValue(Program.class);
+                                holder.m_about.setText("Your session with " + user.getName() + " " + user.getSurname() + " "
+                                        + "for " + "'" + program.getName() + "'" + " program on "
+                                        + m_notifications.get(position).getDate() + " has been canceled.");
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                break;
+            case "requestForChange":
+                dbRef.child("user").child(m_notifications.get(position).getFrom()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        final User user = dataSnapshot.getValue(User.class);
+                        dbRef.child("program").child(m_notifications.get(position).getProgramid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Program program = dataSnapshot.getValue(Program.class);
+                                holder.m_about.setText(user.getName() + " " + user.getSurname() + " "
+                                        + "has requested a date change for your " + "'" + program.getName() + "'" + " program on "
+                                        + m_notifications.get(position).getDate());
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                break;
+            case "requestedChange":
+                dbRef.child("user").child(m_notifications.get(position).getFrom()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        final User user = dataSnapshot.getValue(User.class);
+                        dbRef.child("program").child(m_notifications.get(position).getProgramid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Program program = dataSnapshot.getValue(Program.class);
+                                holder.m_about.setText("You have requested a date change for "
+                                         + "'" + program.getName() + "'" + " program, on "
+                                        + m_notifications.get(position).getDate() + " with " + user.getName() + " " + user.getSurname());
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                break;
+            case "acceptedChange":
+                dbRef.child("user").child(m_notifications.get(position).getFrom()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        final User user = dataSnapshot.getValue(User.class);
+                        dbRef.child("program").child(m_notifications.get(position).getProgramid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Program program = dataSnapshot.getValue(Program.class);
+                                holder.m_about.setText("Your requested date change for "
+                                        + "'" + program.getName() + "'" + " program, on "
+                                        + m_notifications.get(position).getDate() + " with " + user.getName() + " " + user.getSurname() + " has been accepted.");
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                break;
+            case "rejectedChange":
+                dbRef.child("user").child(m_notifications.get(position).getFrom()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        final User user = dataSnapshot.getValue(User.class);
+                        dbRef.child("program").child(m_notifications.get(position).getProgramid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Program program = dataSnapshot.getValue(Program.class);
+                                Log.d("children", dataSnapshot.getChildren().toString());
+                                holder.m_about.setText("Your requested date change for "
+                                        + "'" + program.getName() + "'" + " program, on "
+                                        + m_notifications.get(position).getDate() + " with " + user.getName() + " " + user.getSurname() + " has been rejected.");
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                     }
 
                     @Override

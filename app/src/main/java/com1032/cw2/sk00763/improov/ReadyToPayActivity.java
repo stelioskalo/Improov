@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -33,6 +34,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 
 public class ReadyToPayActivity extends AppCompatActivity {
     private TextView program = null;
@@ -158,6 +162,23 @@ public class ReadyToPayActivity extends AppCompatActivity {
                             m_ref.child("user").child(getIntent().getStringExtra("from")).child("payments").child(paymentid).setValue(true);
                             m_ref.child("user").child(m_user.getUid()).child("notification").child(getIntent().getStringExtra("notification")).child("pending").setValue("no");
                             m_ref.child("session").child(getIntent().getStringExtra("session")).child("paid").setValue("yes");
+
+                            Calendar mcurrentTime = Calendar.getInstance();
+                            int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                            int minute = mcurrentTime.get(Calendar.MINUTE);
+                            Date currentTime = Calendar.getInstance().getTime();
+
+                            HashMap<String, Object> hashMap = new HashMap<>();
+                            hashMap.put("sender", getIntent().getStringExtra("from"));
+                            hashMap.put("receiver", m_user.getUid());
+                            hashMap.put("message", "This is an automated reply. I have accepted your request for a session " +
+                                    "for " + "'" + getIntent().getStringExtra("program") + "'" + " on the " + getIntent().getStringExtra("date") +
+                                    " and we will be in touch shortly!");
+                            hashMap.put("time", String.valueOf(hour) + ":" + String.valueOf(minute));
+                            hashMap.put("date", currentTime.toString());
+                            hashMap.put("senderName", getIntent().getStringExtra("from"));
+
+                            m_ref.child("message").push().setValue(hashMap);
                         }
                         Log.i("paymentExample", paymentDetails);
 

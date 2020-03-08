@@ -3,7 +3,9 @@ package com1032.cw2.sk00763.improov;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -111,6 +113,19 @@ public class SessionListAdapter extends RecyclerView.Adapter<SessionListAdapter.
 
                     }
                 });
+
+                if(session.getMarkcompletecoach().matches("yes") && session.getCoach().matches(m_user.getUid())){
+                    holder.card.setBackgroundColor(Color.parseColor("#5DE744"));
+                }
+                else {
+                    holder.card.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                }
+                if(session.getMarkcompletestudent().matches("yes") && session.getStudent().matches(m_user.getUid())){
+                    holder.card.setBackgroundColor(Color.parseColor("#5DE744"));
+                }
+                else {
+                    holder.card.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                }
             }
 
             @Override
@@ -145,6 +160,8 @@ public class SessionListAdapter extends RecyclerView.Adapter<SessionListAdapter.
         private TextView m_name = null;
         //event image
         private ImageView m_image = null;
+
+        private CardView card = null;
         //on event click listener
         private SessionListAdapter.SessionActionListener m_listener = null;
 
@@ -155,6 +172,7 @@ public class SessionListAdapter extends RecyclerView.Adapter<SessionListAdapter.
             m_name = (TextView) itemView.findViewById(R.id.sessionperson);
             m_program = (TextView) itemView.findViewById(R.id.sessionname);
             m_image = (ImageView) itemView.findViewById(R.id.programimage);
+            card = (CardView) itemView.findViewById(R.id.sessioncv);
 
             m_listener = sessionActionListener;
 

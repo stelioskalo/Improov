@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,6 +27,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+import es.dmoral.toasty.Toasty;
+
 public class RespondToRequest extends Activity {
     private ImageView pic = null;
     private TextView program = null;
@@ -33,7 +36,9 @@ public class RespondToRequest extends Activity {
     private TextView type = null;
     private TextView accept = null;
     private TextView reject = null;
+    private TextView title = null;
     private TextView seesession = null;
+    private TextView typeofsession = null;
     private FirebaseAuth m_auth = null;
     private FirebaseUser m_user = null;
     private DatabaseReference m_ref = null;
@@ -49,6 +54,8 @@ public class RespondToRequest extends Activity {
         accept = findViewById(R.id.accept);
         reject = findViewById(R.id.reject);
         seesession = findViewById(R.id.seesessions);
+        title = findViewById(R.id.type);
+        typeofsession = findViewById(R.id.typeofsession);
         m_auth = FirebaseAuth.getInstance();
         m_user = m_auth.getCurrentUser();
         m_ref = FirebaseDatabase.getInstance().getReference();
@@ -93,30 +100,43 @@ public class RespondToRequest extends Activity {
             }
         });
 
+        if(getIntent().getStringExtra("type").matches("requestForSession1hr") ||
+                getIntent().getStringExtra("type").matches("requestForMonthSession")){
+            accept.setVisibility(View.VISIBLE);
+            reject.setVisibility(View.VISIBLE);
+        }
+        else if(getIntent().getStringExtra("type").matches("cancelSession")){
+            accept.setVisibility(View.GONE);
+            reject.setVisibility(View.GONE);
+            seesession.setText("");
+            title.setText("Someone has cancelled their session with you");
+            canceledSession();
+        }
+        else if(getIntent().getStringExtra("type").matches("requestForChange")){
+            seesession.setText("");
+            title.setText("Someone has requested a date change");
+            accept.setVisibility(View.VISIBLE);
+            reject.setVisibility(View.VISIBLE);
+            type.setVisibility(View.GONE);
+            typeofsession.setVisibility(View.GONE);
+        }
+
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                Date currentTime = Calendar.getInstance().getTime();
 
                 String id = getIntent().getStringExtra("id");
 
                 if(pending.matches("yes")){
                     m_ref.child("user").child(m_user.getUid()).child("notification").child(id).child("pending").setValue("no");
-                    HashMap<String, Object> hashMap = new HashMap<>();
-                    hashMap.put("sender", m_user.getUid());
-                    hashMap.put("receiver", getIntent().getStringExtra("from"));
-                    hashMap.put("message", "This is an automated reply. I have accepted your request for a session " +
-                            "for " + "'" + getIntent().getStringExtra("program") + "'" + " on the " + getIntent().getStringExtra("date") +
-                            " and we will be in touch shortly!");
-                    hashMap.put("time", String.valueOf(hour) + ":" + String.valueOf(minute));
-                    hashMap.put("date", currentTime.toString());
-                    hashMap.put("senderName", m_user.getEmail());
-
-                    notifyUserAccept();
-
+                    if(getIntent().getStringExtra("type").matches("requestForSession1hr") ||
+                            getIntent().getStringExtra("type").matches("requestForMonthSession")) {
+                        notifyUserAccept();
+                        Toasty.success(getBaseContext(), "Session Accepted!", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(getIntent().getStringExtra("type").matches("requestForChange")){
+                        acceptChange();
+                    }
                     finish();
                 }
             }
@@ -128,7 +148,13 @@ public class RespondToRequest extends Activity {
                 String id = getIntent().getStringExtra("id");
                 if(pending.matches("yes")){
                     m_ref.child("user").child(m_user.getUid()).child("notification").child(id).child("pending").setValue("no");
-                    notifyUserReject();
+                    if(getIntent().getStringExtra("type").matches("requestForSession1hr") ||
+                            getIntent().getStringExtra("type").matches("requestForMonthSession")) {
+                        notifyUserReject();
+                    }
+                    else if(getIntent().getStringExtra("type").matches("requestForChange")){
+                        rejectChange();
+                    }
                     finish();
                 }
             }
@@ -145,8 +171,6 @@ public class RespondToRequest extends Activity {
 
     public void notifyUserAccept(){
         Calendar mcurrentTime = Calendar.getInstance();
-        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-        int minute = mcurrentTime.get(Calendar.MINUTE);
         Date currentTime = Calendar.getInstance().getTime();
 
         String notificationId = RandomNumber.generateUID();
@@ -154,16 +178,15 @@ public class RespondToRequest extends Activity {
 
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("type").setValue("acceptedRequest");
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("from").setValue(m_user.getUid());
-        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("date").setValue(currentTime.toString());
-        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("hour").setValue(String.valueOf(hour) + ":" + String.valueOf(minute));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("date").setValue(getIntent().getStringExtra("date"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("hour").setValue(getIntent().getStringExtra("hour"));
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("program").setValue(getIntent().getStringExtra("program"));
-        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("dateofrequest").setValue(getIntent().getStringExtra("date"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("dateofrequest").setValue(currentTime.toString());
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("notificationId").setValue(notificationId);
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("programid").setValue(getIntent().getStringExtra("programid"));
-        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("pending").setValue("yes");
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("pending").setValue("no");
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("topay").setValue(getIntent().getStringExtra("topay"));
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("session").setValue(sessionId);
-
 
         m_ref.child("session").child(sessionId).child("coach").setValue(m_user.getUid());
         m_ref.child("session").child(sessionId).child("student").setValue(getIntent().getStringExtra("from"));
@@ -172,6 +195,8 @@ public class RespondToRequest extends Activity {
         m_ref.child("session").child(sessionId).child("sessionId").setValue(sessionId);
         m_ref.child("session").child(sessionId).child("date").setValue(getIntent().getStringExtra("date"));
         m_ref.child("session").child(sessionId).child("howlong").setValue(getIntent().getStringExtra("howlong"));
+        m_ref.child("session").child(sessionId).child("markcompletecoach").setValue("no");
+        m_ref.child("session").child(sessionId).child("markcompletestudent").setValue("no");
 
         String howlong = getIntent().getStringExtra("howlong");
         if(howlong.matches("hour")){
@@ -184,21 +209,106 @@ public class RespondToRequest extends Activity {
 
     public void notifyUserReject(){
         Calendar mcurrentTime = Calendar.getInstance();
-        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-        int minute = mcurrentTime.get(Calendar.MINUTE);
         Date currentTime = Calendar.getInstance().getTime();
 
         String notificationId = RandomNumber.generateUID();
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("type").setValue("rejectedRequest");
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("from").setValue(m_user.getUid());
-        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("date").setValue(currentTime.toString());
-        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("hour").setValue(String.valueOf(hour) + ":" + String.valueOf(minute));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("date").setValue(getIntent().getStringExtra("date"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("hour").setValue(getIntent().getStringExtra("hour"));
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("program").setValue(getIntent().getStringExtra("program"));
-        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("dateofrequest").setValue(getIntent().getStringExtra("date"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("dateofrequest").setValue(currentTime.toString());
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("notificationId").setValue(notificationId);
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("programid").setValue(getIntent().getStringExtra("programid"));
-        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("pending").setValue(notificationId);
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("pending").setValue("no");
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("topay").setValue(getIntent().getStringExtra("topay"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("session").setValue("");
+
+        String howlong = getIntent().getStringExtra("howlong");
+
+        if(howlong.matches("hour")){
+            m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("howlong").setValue("hour");
+        }
+        else {
+            m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("howlong").setValue("month");
+        }
+    }
+
+    public void canceledSession(){
+        m_ref.child("user").child(getIntent().getStringExtra("from")).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                String image = user.getImage();
+                try {
+                    pic.setImageBitmap(decodeFromFirebaseBase64(image));
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        date.setText(getIntent().getStringExtra("date"));
+        type.setText(getIntent().getStringExtra("howlong"));
+
+        m_ref.child("program").child(getIntent().getStringExtra("programid")).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Program program2 = dataSnapshot.getValue(Program.class);
+                program.setText(program2.getName());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void acceptChange(){
+        Calendar mcurrentTime = Calendar.getInstance();
+        Date currentTime = Calendar.getInstance().getTime();
+
+        String notificationId = RandomNumber.generateUID();
+
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("type").setValue("acceptedChange");
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("from").setValue(m_user.getUid());
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("date").setValue(getIntent().getStringExtra("date"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("hour").setValue(getIntent().getStringExtra("hour"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("program").setValue(getIntent().getStringExtra("program"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("dateofrequest").setValue(currentTime.toString());
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("notificationId").setValue(notificationId);
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("programid").setValue(getIntent().getStringExtra("programid"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("pending").setValue("no");
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("topay").setValue(getIntent().getStringExtra("topay"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("session").setValue(getIntent().getStringExtra("session"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("howlong").setValue(getIntent().getStringExtra("howlong"));
+
+        m_ref.child("session").child(getIntent().getStringExtra("session")).child("date").setValue(getIntent().getStringExtra("date"));
+    }
+
+    public void rejectChange(){
+        Calendar mcurrentTime = Calendar.getInstance();
+        Date currentTime = Calendar.getInstance().getTime();
+
+        String notificationId = RandomNumber.generateUID();
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("type").setValue("rejectedChange");
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("from").setValue(m_user.getUid());
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("date").setValue(getIntent().getStringExtra("date"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("hour").setValue(getIntent().getStringExtra("hour"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("program").setValue(getIntent().getStringExtra("program"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("dateofrequest").setValue(currentTime.toString());
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("notificationId").setValue(notificationId);
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("programid").setValue(getIntent().getStringExtra("programid"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("pending").setValue("no");
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("topay").setValue(getIntent().getStringExtra("topay"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("session").setValue(getIntent().getStringExtra("session"));
 
         String howlong = getIntent().getStringExtra("howlong");
 

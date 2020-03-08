@@ -60,7 +60,7 @@ public class ViewDiscussion extends Activity implements PostListAdapter.PostActi
         pic = (ImageView) findViewById(R.id.viewdiscussionpic);
         posts = (RecyclerView) findViewById(R.id.postlist);
         writePost = (EditText) findViewById(R.id.postindiscussion);
-        discussionId = getIntent().getStringExtra("id");
+        discussionId = getIntent().getStringExtra("discussionId");
         m_auth = FirebaseAuth.getInstance();
         m_user = m_auth.getCurrentUser();
         m_ref = FirebaseDatabase.getInstance().getReference();
@@ -140,7 +140,6 @@ public class ViewDiscussion extends Activity implements PostListAdapter.PostActi
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 Post post = dataSnapshot.getValue(Post.class);
                                 postArray.add(post);
-                                Log.d("PELLE", post.getPost());
                                 m_adapter = new PostListAdapter(ViewDiscussion.this, postArray, ViewDiscussion.this);
                                 posts.setAdapter(m_adapter);
                             }

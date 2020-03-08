@@ -73,6 +73,7 @@ public class RetrievePayment extends Activity {
                 }
                 else {
                     Intent intent = new Intent(RetrievePayment.this, ConfirmationActivity.class);
+                    intent.putExtra("for", "retrieve");
                     intent.putExtra("email", email.getText().toString());
                     startActivity(intent);
                 }

@@ -84,6 +84,7 @@ public class ViewProgram extends Activity {
                 i.putExtra("coachid", getIntent().getStringExtra("coachid"));
                 i.putExtra("programname", name.getText().toString());
                 i.putExtra("programid", getIntent().getStringExtra("programid"));
+                i.putExtra("for","first");
                 i.putExtra("type", "hourSession");
                 i.putExtra("hourpay", getIntent().getStringExtra("hourpay"));
                 startActivity(i);
@@ -98,6 +99,7 @@ public class ViewProgram extends Activity {
                 i.putExtra("coachid", getIntent().getStringExtra("coachid"));
                 i.putExtra("programname", name.getText().toString());
                 i.putExtra("programid", getIntent().getStringExtra("programid"));
+                i.putExtra("for","first");
                 i.putExtra("type", "monthSession");
                 i.putExtra("monthpay", getIntent().getStringExtra("monthpay"));
                 startActivity(i);

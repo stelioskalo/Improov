@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,6 +36,7 @@ public class RequestHourSession extends Activity {
     private FirebaseAuth m_suth = null;
     private FirebaseUser m_user = null;
     private DatabaseReference m_ref = null;
+    final Date currentDate = Calendar.getInstance().getTime();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,7 @@ public class RequestHourSession extends Activity {
         date = (EditText) findViewById(R.id.selectdate);
         time = (EditText) findViewById(R.id.selecthour);
         request = (Button) findViewById(R.id.requestsession);
-        final Date currentDate = Calendar.getInstance().getTime();
+
         FirebaseAuth m_auth = FirebaseAuth.getInstance();
         m_user = m_auth.getCurrentUser();
         m_ref = FirebaseDatabase.getInstance().getReference();
@@ -89,7 +91,7 @@ public class RequestHourSession extends Activity {
                 mTimePicker = new TimePickerDialog(RequestHourSession.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        time.setText( selectedHour + ":" + selectedMinute);
+                        time.setText(selectedHour + ":" + selectedMinute);
                     }
                 }, hour, minute, true);
                 mTimePicker.setTitle("Select Time");
@@ -100,94 +102,11 @@ public class RequestHourSession extends Activity {
         request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!requestDate.before(currentDate) && !time.getText().toString().matches("")) {
-                    if(getIntent().getStringExtra("type").matches("hourSession")) {
-                        Toast.makeText(RequestHourSession.this, "Session Requested!", Toast.LENGTH_LONG)
-                                .show();
-                        m_ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                String notificationId = RandomNumber.generateUID();
-                                String notificationId2 = RandomNumber.generateUID();
-                                String coachId = getIntent().getStringExtra("coachid");
-                                String topay = getIntent().getStringExtra("hourpay");
-
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("from").setValue(m_user.getUid());
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("type").setValue("requestForSession1hr");
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("date").setValue(requestDate.toString());
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("hour").setValue(time.getText().toString());
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("program").setValue(getIntent().getStringExtra("programname"));
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("dateofrequest").setValue(currentDate.toString());
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("notificationId").setValue(notificationId);
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("programid").setValue(getIntent().getStringExtra("programid"));
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("howlong").setValue("hour");
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("pending").setValue("yes");
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("topay").setValue(topay);
-
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("type").setValue("requestedSession");
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("from").setValue(coachId);
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("date").setValue(requestDate.toString());
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("hour").setValue(time.getText().toString());
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("program").setValue(getIntent().getStringExtra("programname"));
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("dateofrequest").setValue(currentDate.toString());
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("notificationId").setValue(notificationId2);
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("programid").setValue(getIntent().getStringExtra("programid"));
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("pending").setValue("yes");
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("topay").setValue(topay);
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-                        finish();
-                    }
-                    else {
-                        Toast.makeText(RequestHourSession.this, "Session Requested!", Toast.LENGTH_LONG)
-                                .show();
-                        m_ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                String notificationId = RandomNumber.generateUID();
-                                String notificationId2 = RandomNumber.generateUID();
-                                String coachId = getIntent().getStringExtra("coachid");
-                                String topay = getIntent().getStringExtra("monthpay");
-
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("from").setValue(m_user.getUid());
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("type").setValue("requestForMonthSession");
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("date").setValue(requestDate.toString());
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("hour").setValue(time.getText().toString());
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("program").setValue(getIntent().getStringExtra("programname"));
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("dateofrequest").setValue(currentDate.toString());
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("notificationId").setValue(notificationId);
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("programid").setValue(getIntent().getStringExtra("programid"));
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("pending").setValue("yes");
-                                m_ref.child("user").child(coachId).child("notification").child(notificationId).child("topay").setValue(topay);
-
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("type").setValue("requestedSession");
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("from").setValue(coachId);
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("date").setValue(requestDate.toString());
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("hour").setValue(time.getText().toString());
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("program").setValue(getIntent().getStringExtra("programname"));
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("dateofrequest").setValue(currentDate.toString());
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("programid").setValue(getIntent().getStringExtra("programid"));
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId).child("howlong").setValue("month");
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("pending").setValue("yes");
-                                m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("topay").setValue(topay);
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-                        finish();
-                    }
-                }
-                else {
-                    Toast.makeText(RequestHourSession.this, "Please enter a valid date and time" , Toast.LENGTH_LONG)
-                            .show();
+                if (getIntent().getStringExtra("for").matches("first")) {
+                    requestSession();
+                } else if (getIntent().getStringExtra("for").matches("change")) {
+                    request.setText("Request change");
+                    requestChange();
                 }
             }
         });
@@ -201,6 +120,150 @@ public class RequestHourSession extends Activity {
         getWindow().setLayout((int) (width * 0.8), (int) (height * 0.8));
 
 
+    }
+
+    public void requestSession() {
+        if (!requestDate.before(currentDate) && !time.getText().toString().matches("")) {
+            if (getIntent().getStringExtra("type").matches("hourSession")) {
+                Toast.makeText(RequestHourSession.this, "Session Requested!", Toast.LENGTH_LONG)
+                        .show();
+                m_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String notificationId = RandomNumber.generateUID();
+                        String notificationId2 = RandomNumber.generateUID();
+                        String coachId = getIntent().getStringExtra("coachid");
+                        String topay = getIntent().getStringExtra("hourpay");
+
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("from").setValue(m_user.getUid());
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("type").setValue("requestForSession1hr");
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("date").setValue(requestDate.toString());
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("hour").setValue(time.getText().toString());
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("program").setValue(getIntent().getStringExtra("programname"));
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("dateofrequest").setValue(currentDate.toString());
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("notificationId").setValue(notificationId);
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("programid").setValue(getIntent().getStringExtra("programid"));
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("howlong").setValue("hour");
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("pending").setValue("yes");
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("topay").setValue(topay);
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("session").setValue("");
+
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("type").setValue("requestedSession");
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("from").setValue(coachId);
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("date").setValue(requestDate.toString());
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("hour").setValue(time.getText().toString());
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("program").setValue(getIntent().getStringExtra("programname"));
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("dateofrequest").setValue(currentDate.toString());
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("notificationId").setValue(notificationId2);
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("programid").setValue(getIntent().getStringExtra("programid"));
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("pending").setValue("yes");
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("howlong").setValue("hour");
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("topay").setValue(topay);
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("session").setValue("");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                finish();
+            } else {
+                Toast.makeText(RequestHourSession.this, "Session Requested!", Toast.LENGTH_LONG)
+                        .show();
+                m_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String notificationId = RandomNumber.generateUID();
+                        String notificationId2 = RandomNumber.generateUID();
+                        String coachId = getIntent().getStringExtra("coachid");
+                        String topay = getIntent().getStringExtra("monthpay");
+
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("from").setValue(m_user.getUid());
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("type").setValue("requestForMonthSession");
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("date").setValue(requestDate.toString());
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("hour").setValue(time.getText().toString());
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("program").setValue(getIntent().getStringExtra("programname"));
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("dateofrequest").setValue(currentDate.toString());
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("notificationId").setValue(notificationId);
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("programid").setValue(getIntent().getStringExtra("programid"));
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("pending").setValue("yes");
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("topay").setValue(topay);
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("session").setValue("");
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("howlong").setValue("month");
+
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("type").setValue("requestedSession");
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("from").setValue(coachId);
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("date").setValue(requestDate.toString());
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("hour").setValue(time.getText().toString());
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("program").setValue(getIntent().getStringExtra("programname"));
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("dateofrequest").setValue(currentDate.toString());
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("programid").setValue(getIntent().getStringExtra("programid"));
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId).child("howlong").setValue("month");
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("pending").setValue("yes");
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("topay").setValue(topay);
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("session").setValue("");
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("notificationId").setValue(notificationId2);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                finish();
+            }
+        } else {
+            Toast.makeText(RequestHourSession.this, "Please enter a valid date and time", Toast.LENGTH_LONG)
+                    .show();
+        }
+    }
+
+    public void requestChange() {
+        if (!requestDate.before(currentDate) && !time.getText().toString().matches("")) {
+            Toast.makeText(RequestHourSession.this, "Change Requested!", Toast.LENGTH_LONG)
+                    .show();
+            m_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String notificationId = RandomNumber.generateUID();
+                    String notificationId2 = RandomNumber.generateUID();
+                    String to = getIntent().getStringExtra("to");
+
+                    m_ref.child("user").child(to).child("notification").child(notificationId).child("from").setValue(m_user.getUid());
+                    m_ref.child("user").child(to).child("notification").child(notificationId).child("type").setValue("requestForChange");
+                    m_ref.child("user").child(to).child("notification").child(notificationId).child("date").setValue(requestDate.toString());
+                    m_ref.child("user").child(to).child("notification").child(notificationId).child("hour").setValue(time.getText().toString());
+                    m_ref.child("user").child(to).child("notification").child(notificationId).child("program").setValue("");
+                    m_ref.child("user").child(to).child("notification").child(notificationId).child("dateofrequest").setValue(currentDate.toString());
+                    m_ref.child("user").child(to).child("notification").child(notificationId).child("notificationId").setValue(notificationId);
+                    m_ref.child("user").child(to).child("notification").child(notificationId).child("programid").setValue(getIntent().getStringExtra("programid"));
+                    m_ref.child("user").child(to).child("notification").child(notificationId).child("howlong").setValue("");
+                    m_ref.child("user").child(to).child("notification").child(notificationId).child("pending").setValue("yes");
+                    m_ref.child("user").child(to).child("notification").child(notificationId).child("topay").setValue("");
+                    m_ref.child("user").child(to).child("notification").child(notificationId).child("session").setValue(getIntent().getStringExtra("session"));
+
+                    m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("type").setValue("requestedChange");
+                    m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("from").setValue(to);
+                    m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("date").setValue(requestDate.toString());
+                    m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("hour").setValue(time.getText().toString());
+                    m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("program").setValue("");
+                    m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("dateofrequest").setValue(currentDate.toString());
+                    m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("notificationId").setValue(notificationId2);
+                    m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("programid").setValue(getIntent().getStringExtra("programid"));
+                    m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("pending").setValue("yes");
+                    m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("topay").setValue("");
+                    m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("howlong").setValue("");
+                    m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("session").setValue(getIntent().getStringExtra("session"));
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            finish();
+        }
     }
 
 

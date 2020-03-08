@@ -10,18 +10,16 @@ public class Discussion {
     private String topic = null;
     private String creatorid = null;
     private String creatorname = null;
-    private String discussionId = null;
 
 
     public Discussion() {
     }
 
-    public Discussion(String about, String topic, String creatorid, String creatorname, String discussionId) {
+    public Discussion(String about, String topic, String creatorid, String creatorname) {
         this.about = about;
         this.topic = topic;
         this.creatorid = creatorid;
         this.creatorname = creatorname;
-        this.discussionId = discussionId;
     }
 
     public String getAbout() {
@@ -30,10 +28,6 @@ public class Discussion {
 
     public String getTopic() {
         return this.topic;
-    }
-
-    public String getDiscussionId() {
-        return this.discussionId;
     }
 
     public String getCreatorname() {

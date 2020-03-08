@@ -6,11 +6,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -276,19 +273,19 @@ public class InterestSelection extends AppCompatActivity {
                 icon.compress(Bitmap.CompressFormat.JPEG, 100,imgConverted);
                 //save the image as a .png file
                 String imageEncoded = Base64.encodeToString(imgConverted.toByteArray(), Base64.DEFAULT);
-                if (currentnooftopics != 5 && !topics.contains("Banking")) {
+                if (currentnooftopics != 5 && !topics.contains("banking")) {
                     cbanking.setCardBackgroundColor(Color.parseColor("#3253FB"));
                     currentnooftopics += 1;
                     int temp = Integer.parseInt(noOfTopics.getText().toString()) + 1;
                     noOfTopics.setText(String.valueOf(temp));
-                    topics.add("Banking");
+                    topics.add("banking");
                     topicspics.add(imageEncoded);
                     if(currentnooftopics == 5){
                         footer.setBackground(getResources().getDrawable(R.drawable.next));
                     }
                 }
-                else if (topics.contains("Banking")){
-                    topics.remove("Banking");
+                else if (topics.contains("banking")){
+                    topics.remove("banking");
                     topicspics.remove(imageEncoded);
                     cbanking.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
                     currentnooftopics -= 1;
