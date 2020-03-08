@@ -104,4 +104,6 @@
     <string name="title_activity_confirmation">ConfirmationActivity</string>
     <string name="title_activity_retrieve_payment">RetrievePayment</string>
     <string name="title_activity_view_session">ViewSession</string>
+    <string name="title_activity_view_article">ViewArticle</string>
+    <string name="title_activity_saved_articles">SavedArticles</string>
 </resources>

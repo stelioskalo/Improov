@@ -168,7 +168,8 @@ public class ViewProfile extends AppCompatActivity implements PopupMenu.OnMenuIt
                 startActivity(i3);
                 return true;
             case R.id.item4:
-
+                Intent i4 = new Intent(ViewProfile.this, SavedArticles.class);
+                startActivity(i4);
                 return true;
             case R.id.item5:
                 m_auth.signOut();

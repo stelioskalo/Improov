@@ -1,25 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    >
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:layout_gravity="right">
-        <TextView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/back"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/backfromviewarticle"/>
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save article"
-            android:textColor="#000000"/>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/savearticle"/>
-    </LinearLayout>
+            android:layout_alignParentEnd="true"
+            android:padding="10dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save article"
+                android:textColor="#000000"
+                android:id="@+id/text1"
+                android:layout_marginTop="6dp"
+                />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/savearticle"
+                android:layout_toRightOf="@+id/text1"/>
+        </RelativeLayout>
+    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,12 +57,28 @@
         android:id="@+id/articlename"
         android:padding="10dp"/>
 
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        card_view:cardBackgroundColor="#FFFFFF"
+        card_view:cardCornerRadius="8dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:id="@+id/viewarticleimage"/>
+
+    </android.support.v7.widget.CardView>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:padding="10dp"
         android:id="@+id/p1"
+        android:textColor="#404040"
         android:visibility="gone"
         android:textSize="18dp"
         />
@@ -47,17 +86,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
         android:id="@+id/p2"
+        android:textColor="#404040"
         android:visibility="gone"
         android:textSize="18dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p3"
         android:visibility="gone"
         android:textSize="18dp"
@@ -65,8 +106,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p4"
         android:visibility="gone"
         android:textSize="18dp"
@@ -74,26 +116,29 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
         android:id="@+id/p5"
+        android:textColor="#404040"
         android:visibility="gone"
         android:textSize="18dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
         android:id="@+id/p6"
+        android:textColor="#404040"
         android:visibility="gone"
         android:textSize="18dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p7"
         android:visibility="gone"
         android:textSize="18dp"
@@ -101,8 +146,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p8"
         android:visibility="gone"
         android:textSize="18dp"
@@ -110,8 +156,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p9"
         android:visibility="gone"
         android:textSize="18dp"
@@ -119,8 +166,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p10"
         android:visibility="gone"
         android:textSize="18dp"
@@ -128,8 +176,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p11"
         android:visibility="gone"
         android:textSize="18dp"
@@ -137,17 +186,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
         android:id="@+id/p12"
+        android:textColor="#404040"
         android:visibility="gone"
         android:textSize="18dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p13"
         android:visibility="gone"
         android:textSize="18dp"
@@ -155,8 +206,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p14"
         android:visibility="gone"
         android:textSize="18dp"
@@ -164,35 +216,39 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
         android:id="@+id/p15"
+        android:textColor="#404040"
         android:visibility="gone"
         android:textSize="18dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
         android:id="@+id/p16"
+        android:textColor="#404040"
         android:visibility="gone"
         android:textSize="18dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
         android:id="@+id/p17"
+        android:textColor="#404040"
         android:visibility="gone"
         android:textSize="18dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p18"
         android:visibility="gone"
         android:textSize="18dp"
@@ -200,17 +256,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
         android:id="@+id/p19"
+        android:textColor="#404040"
         android:visibility="gone"
         android:textSize="18dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p20"
         android:visibility="gone"
         android:textSize="18dp"
@@ -218,8 +276,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p21"
         android:visibility="gone"
         android:textSize="18dp"
@@ -227,8 +286,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p22"
         android:visibility="gone"
         android:textSize="18dp"
@@ -236,8 +296,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p23"
         android:visibility="gone"
         android:textSize="18dp"
@@ -245,17 +306,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
         android:id="@+id/p24"
+        android:textColor="#404040"
         android:visibility="gone"
         android:textSize="18dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p25"
         android:visibility="gone"
         android:textSize="18dp"
@@ -263,8 +326,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p26"
         android:visibility="gone"
         android:textSize="18dp"
@@ -272,8 +336,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p27"
         android:visibility="gone"
         android:textSize="18dp"
@@ -281,8 +346,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p28"
         android:visibility="gone"
         android:textSize="18dp"
@@ -290,8 +356,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p29"
         android:visibility="gone"
         android:textSize="18dp"
@@ -299,8 +366,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p30"
         android:visibility="gone"
         android:textSize="18dp"
@@ -308,8 +376,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p31"
         android:visibility="gone"
         android:textSize="18dp"
@@ -317,35 +386,39 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
         android:id="@+id/p32"
+        android:textColor="#404040"
         android:visibility="gone"
         android:textSize="18dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
         android:id="@+id/p33"
+        android:textColor="#404040"
         android:visibility="gone"
         android:textSize="18dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
         android:id="@+id/p34"
+        android:textColor="#404040"
         android:visibility="gone"
         android:textSize="18dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p35"
         android:visibility="gone"
         android:textSize="18dp"
@@ -353,8 +426,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p36"
         android:visibility="gone"
         android:textSize="18dp"
@@ -362,17 +436,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
         android:id="@+id/p37"
+        android:textColor="#404040"
         android:visibility="gone"
         android:textSize="18dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p38"
         android:visibility="gone"
         android:textSize="18dp"
@@ -380,20 +456,42 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
         android:id="@+id/p39"
+        android:textColor="#404040"
         android:visibility="gone"
         android:textSize="18dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:textColor="#404040"
         android:id="@+id/p40"
         android:visibility="gone"
         android:textSize="18dp"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginTop="30dp"
+        android:text="Copyright © 2020 Entrepreneur Media, Inc. All rights reserved."
+        android:padding="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginTop="10dp"
+        android:text="URL"
+        android:layout_gravity="center"
+        android:id="@+id/articleurl"
+        android:textColor="#000000"
+        android:padding="5dp"/>
+
 </LinearLayout>
+</ScrollView>

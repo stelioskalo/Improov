@@ -49,9 +49,17 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
         holder.m_title.setText(m_articles.get(position).getTitle());
         holder.m_paragraph.setText(m_articles.get(position).getParagraph1() + ".....");
         String imagenum = m_articles.get(position).getImagenum();
+        String category = m_articles.get(position).getCategory();
+        String categoryname = null;
+        if(category.contains(" ")){
+            categoryname = category.replaceAll("\\s+","");
+        }
+        else {
+            categoryname = category;
+        }
         int id = m_context
                 .getResources()
-                .getIdentifier("com1032.cw2.sk00763.improov:drawable/" + m_articles.get(position).getCategory().toLowerCase() + imagenum, null, null);
+                .getIdentifier("com1032.cw2.sk00763.improov:drawable/" + categoryname.toLowerCase() + imagenum, null, null);
         holder.m_image.setImageResource(id);
     }
 

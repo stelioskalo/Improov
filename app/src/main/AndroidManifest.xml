@@ -94,7 +94,8 @@
             android:label="@string/title_activity_view_discussion" />
         <activity
             android:name=".ViewProfile"
-            android:label="@string/title_activity_view_profile" />
+            android:label="@string/title_activity_view_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EditProfile"
             android:label="@string/title_activity_edit_profile" />
@@ -131,7 +132,14 @@
             android:theme="@style/AppTheme.popup" />
         <activity
             android:name=".ViewSession"
-            android:label="@string/title_activity_view_session"></activity>
+            android:label="@string/title_activity_view_session" />
+        <activity
+            android:name=".ViewArticle"
+            android:label="@string/title_activity_view_article" />
+        <activity
+            android:name=".SavedArticles"
+            android:label="@string/title_activity_saved_articles"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
