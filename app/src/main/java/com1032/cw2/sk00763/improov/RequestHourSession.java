@@ -146,6 +146,12 @@ public class RequestHourSession extends Activity {
                         m_ref.child("user").child(coachId).child("notification").child(notificationId).child("howlong").setValue("hour");
                         m_ref.child("user").child(coachId).child("notification").child(notificationId).child("pending").setValue("yes");
                         m_ref.child("user").child(coachId).child("notification").child(notificationId).child("topay").setValue(topay);
+                        if(getIntent().getStringExtra("free").matches("yes")){
+                            m_ref.child("user").child(coachId).child("notification").child(notificationId).child("free").setValue("yes");
+                        }
+                        else {
+                            m_ref.child("user").child(coachId).child("notification").child(notificationId).child("free").setValue("no");
+                        }
                         m_ref.child("user").child(coachId).child("notification").child(notificationId).child("session").setValue("");
 
                         m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("type").setValue("requestedSession");
@@ -160,6 +166,12 @@ public class RequestHourSession extends Activity {
                         m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("howlong").setValue("hour");
                         m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("topay").setValue(topay);
                         m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("session").setValue("");
+                        if(getIntent().getStringExtra("free").matches("yes")){
+                            m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("free").setValue("yes");
+                        }
+                        else {
+                            m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("free").setValue("no");
+                        }
                     }
 
                     @Override
@@ -191,6 +203,8 @@ public class RequestHourSession extends Activity {
                         m_ref.child("user").child(coachId).child("notification").child(notificationId).child("topay").setValue(topay);
                         m_ref.child("user").child(coachId).child("notification").child(notificationId).child("session").setValue("");
                         m_ref.child("user").child(coachId).child("notification").child(notificationId).child("howlong").setValue("month");
+                        m_ref.child("user").child(coachId).child("notification").child(notificationId).child("free").setValue("no");
+
 
                         m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("type").setValue("requestedSession");
                         m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("from").setValue(coachId);
@@ -204,6 +218,8 @@ public class RequestHourSession extends Activity {
                         m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("topay").setValue(topay);
                         m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("session").setValue("");
                         m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("notificationId").setValue(notificationId2);
+                        m_ref.child("user").child(m_user.getUid()).child("notification").child(notificationId2).child("free").setValue("no");
+
                     }
 
                     @Override

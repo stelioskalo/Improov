@@ -72,10 +72,12 @@ public class ViewProgram extends Activity {
         coachpic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ViewProgram.this, ViewCoach.class);
+                Intent i = new Intent(ViewProgram.this, ViewProfile.class);
+                i.putExtra("from", getIntent().getStringExtra("coachid"));
                 startActivity(i);
             }
         });
+
 
         hoursession.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +88,12 @@ public class ViewProgram extends Activity {
                 i.putExtra("programid", getIntent().getStringExtra("programid"));
                 i.putExtra("for","first");
                 i.putExtra("type", "hourSession");
+                if(hoursession.getText().toString().matches("Free hour session")){
+                    i.putExtra("free", "yes");
+                }
+                else {
+                    i.putExtra("free", "no");
+                }
                 i.putExtra("hourpay", getIntent().getStringExtra("hourpay"));
                 startActivity(i);
                 layout.setBackgroundColor(Color.parseColor("#A1A1A1"));
@@ -108,6 +116,8 @@ public class ViewProgram extends Activity {
         });
 
         loaddata();
+
+        firstTime();
     }
 
     public void loaddata(){
@@ -161,6 +171,37 @@ public class ViewProgram extends Activity {
     public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
         byte[] decodedByteArray = Base64.decode(image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+    }
+
+    public void firstTime(){
+        m_ref.child("user").child(m_user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild("first time")){
+                    m_ref.child("user").child(m_user.getUid()).child("first time").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(!dataSnapshot.hasChild(programId)){
+                                hoursession.setText("Free hour session");
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+                else {
+                    hoursession.setText("Free hour session");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

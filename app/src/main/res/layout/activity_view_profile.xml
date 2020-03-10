@@ -35,7 +35,18 @@
             android:src="@drawable/options"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="5dp"
+            android:id="@+id/popupmenu"
             android:onClick="popup"
+            />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/report"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="5dp"
+            android:id="@+id/reportuser"
+            android:visibility="gone"
             />
     </RelativeLayout>
 

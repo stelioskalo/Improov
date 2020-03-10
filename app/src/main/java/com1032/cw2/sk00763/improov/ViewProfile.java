@@ -31,6 +31,8 @@ public class ViewProfile extends AppCompatActivity implements PopupMenu.OnMenuIt
 
     private TextView back = null;
     private ImageView pic = null;
+    private ImageView report = null;
+    private ImageView popup = null;
     private TextView name = null;
     private TextView surname = null;
     private TextView about = null;
@@ -60,6 +62,8 @@ public class ViewProfile extends AppCompatActivity implements PopupMenu.OnMenuIt
         name = (TextView) findViewById(R.id.viewprofname);
         surname = (TextView) findViewById(R.id.viewprofsurname);
         about = (TextView) findViewById(R.id.aboutme);
+        popup = (ImageView) findViewById(R.id.popupmenu);
+        report = (ImageView) findViewById(R.id.reportuser);
         qualifications = (TextView) findViewById(R.id.viewqualifications);
         topicpic1 = (ImageView) findViewById(R.id.viewtopicpic1);
         topicpic2 = (ImageView) findViewById(R.id.viewtopicpic2);
@@ -82,12 +86,27 @@ public class ViewProfile extends AppCompatActivity implements PopupMenu.OnMenuIt
             }
         });
 
+        if(!getIntent().getStringExtra("from").matches(m_user.getUid())){
+            popup.setVisibility(View.GONE);
+            report.setVisibility(View.VISIBLE);
+        }
+
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ViewProfile.this, ReportUser.class);
+                i.putExtra("from", getIntent().getStringExtra("from"));
+                startActivity(i);
+            }
+        });
+
         populateViews();
 
     }
 
     public void populateViews() {
-        m_ref.child("user").child(m_user.getUid()).addValueEventListener(new ValueEventListener() {
+        String userId = getIntent().getStringExtra("from");
+        m_ref.child("user").child(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);

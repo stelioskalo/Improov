@@ -72,6 +72,20 @@ public class ViewSession extends Activity implements PopupMenu.OnMenuItemClickLi
             }
         });
 
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ViewSession.this, ViewProfile.class);
+                if(getIntent().getStringExtra("student").matches(m_user.getUid()) && !getIntent().getStringExtra("coach").matches(m_user.getUid())) {
+                    i.putExtra("from", getIntent().getStringExtra("coach"));
+                }
+                else {
+                    i.putExtra("from", getIntent().getStringExtra("student"));
+                }
+                startActivity(i);
+            }
+        });
+
 
         populateView();
     }
@@ -82,8 +96,11 @@ public class ViewSession extends Activity implements PopupMenu.OnMenuItemClickLi
         if(paid.matches("yes")){
             payment.setText("Session Paid");
         }
-        else {
+        else if(paid.matches("no")){
             payment.setText("Not yet paid");
+        }
+        else {
+            payment.setText("Free session");
         }
 
         if(getIntent().getStringExtra("howlong").matches("hour")){
@@ -93,7 +110,7 @@ public class ViewSession extends Activity implements PopupMenu.OnMenuItemClickLi
             date.setText(getIntent().getStringExtra("date") + " for a " + getIntent().getStringExtra("howlong") + " session");
         }
 
-        String programId = getIntent().getStringExtra("program");
+        String programId = getIntent().getStringExtra("programid");
         m_ref.child("program").child(programId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -187,7 +204,8 @@ public class ViewSession extends Activity implements PopupMenu.OnMenuItemClickLi
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for(DataSnapshot ds : dataSnapshot.getChildren()){
                                 Notification notification = ds.getValue(Notification.class);
-                                if(notification.getSession().matches(sessionId) && getIntent().getStringExtra("paid").matches("no")){
+                                if(notification.getSession().matches(sessionId) && getIntent().getStringExtra("paid").matches("no")
+                                        && notification.getFree().matches("no")){
                                     Intent i2 = new Intent(ViewSession.this, ReadyToPayActivity.class);
                                     i2.putExtra("from", notification.getFrom());
                                     i2.putExtra("program", notification.getProgram());
@@ -200,7 +218,10 @@ public class ViewSession extends Activity implements PopupMenu.OnMenuItemClickLi
                                     startActivity(i2);
                                 }
                                 else if(notification.getSession().matches(sessionId) && getIntent().getStringExtra("paid").matches("yes")){
-                                    Toasty.warning(ViewSession.this, "You have already paid!", Toast.LENGTH_SHORT).show();
+                                    Toasty.success(ViewSession.this, "You have already paid!", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Toasty.success(ViewSession.this, "This session is free!", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }

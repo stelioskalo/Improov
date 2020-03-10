@@ -173,6 +173,7 @@ public class RespondToRequest extends Activity {
         Calendar mcurrentTime = Calendar.getInstance();
         Date currentTime = Calendar.getInstance().getTime();
 
+        String howlong = getIntent().getStringExtra("howlong");
         String notificationId = RandomNumber.generateUID();
         String sessionId = RandomNumber.generateUID();
 
@@ -187,24 +188,31 @@ public class RespondToRequest extends Activity {
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("pending").setValue("no");
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("topay").setValue(getIntent().getStringExtra("topay"));
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("session").setValue(sessionId);
-
-        m_ref.child("session").child(sessionId).child("coach").setValue(m_user.getUid());
-        m_ref.child("session").child(sessionId).child("student").setValue(getIntent().getStringExtra("from"));
-        m_ref.child("session").child(sessionId).child("program").setValue(getIntent().getStringExtra("programid"));
-        m_ref.child("session").child(sessionId).child("paid").setValue("no");
-        m_ref.child("session").child(sessionId).child("sessionId").setValue(sessionId);
-        m_ref.child("session").child(sessionId).child("date").setValue(getIntent().getStringExtra("date"));
-        m_ref.child("session").child(sessionId).child("howlong").setValue(getIntent().getStringExtra("howlong"));
-        m_ref.child("session").child(sessionId).child("markcompletecoach").setValue("no");
-        m_ref.child("session").child(sessionId).child("markcompletestudent").setValue("no");
-
-        String howlong = getIntent().getStringExtra("howlong");
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("free").setValue(getIntent().getStringExtra("free"));
         if(howlong.matches("hour")){
             m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("howlong").setValue("hour");
         }
         else {
             m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("howlong").setValue("month");
         }
+
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("first time").child(getIntent().getStringExtra("programid")).setValue(getIntent().getStringExtra("programid"));
+
+        m_ref.child("session").child(sessionId).child("coach").setValue(m_user.getUid());
+        m_ref.child("session").child(sessionId).child("student").setValue(getIntent().getStringExtra("from"));
+        m_ref.child("session").child(sessionId).child("program").setValue(getIntent().getStringExtra("programid"));
+        if(getIntent().getStringExtra("free").matches("yes")){
+            m_ref.child("session").child(sessionId).child("paid").setValue("free");
+        }
+        else {
+            m_ref.child("session").child(sessionId).child("paid").setValue("no");
+        }
+        m_ref.child("session").child(sessionId).child("sessionId").setValue(sessionId);
+        m_ref.child("session").child(sessionId).child("date").setValue(getIntent().getStringExtra("date"));
+        m_ref.child("session").child(sessionId).child("howlong").setValue(getIntent().getStringExtra("howlong"));
+        m_ref.child("session").child(sessionId).child("markcompletecoach").setValue("no");
+        m_ref.child("session").child(sessionId).child("markcompletestudent").setValue("no");
+
     }
 
     public void notifyUserReject(){
@@ -223,6 +231,8 @@ public class RespondToRequest extends Activity {
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("pending").setValue("no");
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("topay").setValue(getIntent().getStringExtra("topay"));
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("session").setValue("");
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("free").setValue(getIntent().getStringExtra("free"));
+
 
         String howlong = getIntent().getStringExtra("howlong");
 
@@ -289,6 +299,8 @@ public class RespondToRequest extends Activity {
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("topay").setValue(getIntent().getStringExtra("topay"));
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("session").setValue(getIntent().getStringExtra("session"));
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("howlong").setValue(getIntent().getStringExtra("howlong"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("free").setValue(getIntent().getStringExtra("free"));
+
 
         m_ref.child("session").child(getIntent().getStringExtra("session")).child("date").setValue(getIntent().getStringExtra("date"));
     }
@@ -309,6 +321,8 @@ public class RespondToRequest extends Activity {
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("pending").setValue("no");
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("topay").setValue(getIntent().getStringExtra("topay"));
         m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("session").setValue(getIntent().getStringExtra("session"));
+        m_ref.child("user").child(getIntent().getStringExtra("from")).child("notification").child(notificationId).child("free").setValue(getIntent().getStringExtra("free"));
+
 
         String howlong = getIntent().getStringExtra("howlong");
 

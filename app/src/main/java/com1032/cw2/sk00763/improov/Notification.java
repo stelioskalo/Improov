@@ -17,13 +17,14 @@ public class Notification {
     private String howlong = null;
     private String topay = null;
     private String session = null;
+    private String free = null;
 
     public Notification() {
 
     }
 
     public Notification(String notificationId, String date, String dateofrequest, String from, String hour, String program, String type, String pending,
-                        String programid, String howlong, String topay, String session) {
+                        String programid, String howlong, String topay, String session, String free) {
         this.notificationId = notificationId;
         this.date = date;
         this.dateofrequest = dateofrequest;
@@ -36,6 +37,7 @@ public class Notification {
         this.howlong = howlong;
         this.topay = topay;
         this.session = session;
+        this.free = free;
     }
 
     public String getNotificationId() {
@@ -84,5 +86,9 @@ public class Notification {
 
     public String getSession(){
         return this.session;
+    }
+
+    public String getFree() {
+        return this.free;
     }
 }

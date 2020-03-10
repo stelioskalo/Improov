@@ -92,6 +92,7 @@ public class ArticlePage extends Fragment implements ArticleListAdapter.ArticleA
             @Override
             public void onClick(View view) {
               Intent i = new Intent(getActivity(), ViewProfile.class);
+              i.putExtra("from", m_user.getUid().toString());
               startActivity(i);
             }
         });

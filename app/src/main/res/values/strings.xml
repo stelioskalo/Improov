@@ -106,4 +106,6 @@
     <string name="title_activity_view_session">ViewSession</string>
     <string name="title_activity_view_article">ViewArticle</string>
     <string name="title_activity_saved_articles">SavedArticles</string>
+    <string name="title_activity_view_person">ViewPerson</string>
+    <string name="title_activity_report_user">ReportUser</string>
 </resources>

@@ -117,6 +117,7 @@ public class Notifications extends Fragment implements NotificationListAdapter.N
             i.putExtra("programid", notificationList.get(position).getProgramid());
             i.putExtra("howlong", notificationList.get(position).getHowlong());
             i.putExtra("topay", notificationList.get(position).getTopay());
+            i.putExtra("free", notificationList.get(position).getFree());
             startActivity(i);
         }
         else if(notificationList.get(position).getType().matches("cancelSession")){
@@ -132,6 +133,7 @@ public class Notifications extends Fragment implements NotificationListAdapter.N
             i.putExtra("programid", notificationList.get(position).getProgramid());
             i.putExtra("howlong", notificationList.get(position).getHowlong());
             i.putExtra("topay", notificationList.get(position).getTopay());
+            i.putExtra("free", notificationList.get(position).getFree());
             startActivity(i);
         }
         else if(notificationList.get(position).getType().matches("requestForChange")){
@@ -148,6 +150,7 @@ public class Notifications extends Fragment implements NotificationListAdapter.N
             i.putExtra("howlong", notificationList.get(position).getHowlong());
             i.putExtra("topay", notificationList.get(position).getTopay());
             i.putExtra("session", notificationList.get(position).getSession());
+            i.putExtra("free", notificationList.get(position).getFree());
             startActivity(i);
         }
     }

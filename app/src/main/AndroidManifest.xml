@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login">
+        <activity
+            android:name=".Login"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,6 +30,7 @@
         <activity
             android:name=".Register"
             android:label="@string/title_activity_register"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
@@ -37,7 +40,8 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -62,84 +66,111 @@
         <activity
             android:name=".Menu"
             android:label="@string/title_activity_menu"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".InterestSelection"
             android:label="@string/title_activity_interest_selection"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CreateProfile"
             android:label="@string/title_activity_edit_profile"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MenuContainer"
             android:label="@string/title_activity_menu_container"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".StudentOrCoach"
             android:label="@string/title_activity_student_or_coach"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CreateProgram"
             android:label="@string/title_activity_create_program"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CreateDiscussion"
-            android:label="@string/title_activity_create_discussion" />
+            android:label="@string/title_activity_create_discussion"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SeeAllDiscussions"
-            android:label="@string/title_activity_see_all_discussions" />
+            android:label="@string/title_activity_see_all_discussions"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ViewDiscussion"
-            android:label="@string/title_activity_view_discussion" />
+            android:label="@string/title_activity_view_discussion"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ViewProfile"
             android:label="@string/title_activity_view_profile"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EditProfile"
-            android:label="@string/title_activity_edit_profile" />
+            android:label="@string/title_activity_edit_profile"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ViewProgram"
-            android:label="@string/title_activity_view_program" />
-        <activity
-            android:name=".ViewCoach"
-            android:label="@string/title_activity_view_coach" />
+            android:label="@string/title_activity_view_program"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RequestHourSession"
             android:label="@string/title_activity_request_hour_session"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.popup" />
         <activity
             android:name=".RespondToRequest"
             android:label="@string/title_activity_view_notification"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.popup" />
         <activity
             android:name=".Chat"
             android:label="@string/title_activity_chat" />
-        <activity android:name=".CallActivity" />
-        <activity android:name=".VideoCallActivity" />
-        <activity android:name=".AudioCallActivity" />
+        <activity
+            android:name=".CallActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".VideoCallActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AudioCallActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ReadyToPayActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.popup" />
         <activity
             android:name=".ConfirmationActivity"
             android:label="@string/title_activity_confirmation"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.popup" />
         <activity
             android:name=".RetrievePayment"
             android:label="@string/title_activity_retrieve_payment"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.popup" />
         <activity
             android:name=".ViewSession"
-            android:label="@string/title_activity_view_session" />
+            android:label="@string/title_activity_view_session"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ViewArticle"
-            android:label="@string/title_activity_view_article" />
+            android:label="@string/title_activity_view_article"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SavedArticles"
             android:label="@string/title_activity_saved_articles"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ReportUser"
+            android:label="@string/title_activity_report_user"
+            android:theme="@style/AppTheme.popup"/>
     </application>
 
 </manifest>

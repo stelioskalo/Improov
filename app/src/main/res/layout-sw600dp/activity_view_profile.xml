@@ -36,6 +36,17 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="5dp"
                 android:onClick="popup"
+                android:id="@+id/popupmenu"
+                />
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/report"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="5dp"
+                android:id="@+id/reportuser"
+                android:visibility="gone"
                 />
         </RelativeLayout>
 
@@ -86,14 +97,15 @@
             android:layout_width="590dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:text="About me"
                 android:textSize="26dp"
+                android:layout_gravity="center"
                 android:id="@+id/aboutme"
                 android:textColor="#fff"/>
 
@@ -256,14 +268,15 @@
             android:layout_width="590dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:text="Qualifications"
                 android:textSize="26dp"
+                android:layout_gravity="center"
                 android:id="@+id/viewqualifications"
                 android:textColor="#fff"/>
 
