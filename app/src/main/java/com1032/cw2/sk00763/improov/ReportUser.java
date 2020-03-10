@@ -51,7 +51,6 @@ public class ReportUser extends Activity {
             @Override
             public void onClick(View v) {
                 report();
-                finish();
             }
         });
 
@@ -73,6 +72,7 @@ public class ReportUser extends Activity {
             m_ref.child("report").child(reportId).child("message").setValue(message.getText().toString());
             m_ref.child("report").child(reportId).child("date").setValue(currentDate.toString());
             Toasty.success(ReportUser.this, "Report has been sent.", Toast.LENGTH_LONG).show();
+            finish();
         }
         else {
             Toasty.error(ReportUser.this, "Please Enter a message.", Toast.LENGTH_LONG).show();

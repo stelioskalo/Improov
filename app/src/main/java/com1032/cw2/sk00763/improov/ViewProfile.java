@@ -26,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViewProfile extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
@@ -47,6 +49,13 @@ public class ViewProfile extends AppCompatActivity implements PopupMenu.OnMenuIt
     private TextView topic3 = null;
     private TextView topic4 = null;
     private TextView topic5 = null;
+    private TextView postReview = null;
+    private TextView reviewNo = null;
+    private ImageView star1 = null;
+    private ImageView star2 = null;
+    private ImageView star3 = null;
+    private ImageView star4 = null;
+    private ImageView star5 = null;
     private FirebaseAuth m_auth = null;
     private FirebaseUser m_user = null;
     private DatabaseReference m_ref = null;
@@ -75,6 +84,13 @@ public class ViewProfile extends AppCompatActivity implements PopupMenu.OnMenuIt
         topic3 = (TextView) findViewById(R.id.viewtopic3);
         topic4 = (TextView) findViewById(R.id.viewtopic4);
         topic5 = (TextView) findViewById(R.id.viewtopic5);
+        star1 = (ImageView) findViewById(R.id.star1);
+        star2 = (ImageView) findViewById(R.id.star2);
+        star3 = (ImageView) findViewById(R.id.star3);
+        star4 = (ImageView) findViewById(R.id.star4);
+        star5 = (ImageView) findViewById(R.id.star5);
+        reviewNo = (TextView) findViewById(R.id.reviewno);
+        postReview = (TextView) findViewById(R.id.postareview);
         m_auth = FirebaseAuth.getInstance();
         m_user = m_auth.getCurrentUser();
         m_ref = FirebaseDatabase.getInstance().getReference();
@@ -89,6 +105,9 @@ public class ViewProfile extends AppCompatActivity implements PopupMenu.OnMenuIt
         if(!getIntent().getStringExtra("from").matches(m_user.getUid())){
             popup.setVisibility(View.GONE);
             report.setVisibility(View.VISIBLE);
+            if(getIntent().getStringExtra("intent") != null){
+                postReview.setVisibility(View.VISIBLE);
+            }
         }
 
         report.setOnClickListener(new View.OnClickListener() {
@@ -100,12 +119,21 @@ public class ViewProfile extends AppCompatActivity implements PopupMenu.OnMenuIt
             }
         });
 
+        postReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ViewProfile.this, ReviewUser.class);
+                i.putExtra("from", getIntent().getStringExtra("from"));
+                startActivity(i);
+            }
+        });
+
         populateViews();
 
     }
 
     public void populateViews() {
-        String userId = getIntent().getStringExtra("from");
+        final String userId = getIntent().getStringExtra("from");
         m_ref.child("user").child(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -147,6 +175,29 @@ public class ViewProfile extends AppCompatActivity implements PopupMenu.OnMenuIt
                 if(dataSnapshot.hasChild("qualifications")){
                     qualifications.setText(user.getQualifications());
                     qualifications.setTextColor(Color.parseColor("#000000"));
+                }
+
+                if(dataSnapshot.hasChild("review")){
+                    m_ref.child("user").child(userId).child("review").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            int reviewNum = 0;
+                            double accumulation = 0;
+                            for(DataSnapshot ds : dataSnapshot.getChildren()){
+                                Review review = ds.getValue(Review.class);
+                                accumulation += Double.parseDouble(review.getStars());
+                                reviewNum++;
+                            }
+
+                            setStars(accumulation / reviewNum);
+                            reviewNo.setText("(" + String.valueOf(reviewNum) + " reviews)");
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
 
@@ -218,6 +269,79 @@ public class ViewProfile extends AppCompatActivity implements PopupMenu.OnMenuIt
                 return true;
             default:
                 return false;
+        }
+    }
+
+    public void setStars(double average){
+        if(average >= 0 && average < 1){
+            star1.setImageResource(R.drawable.half_star);
+            star2.setImageResource(R.drawable.star_white);
+            star3.setImageResource(R.drawable.star_white);
+            star4.setImageResource(R.drawable.star_white);
+            star5.setImageResource(R.drawable.star_white);
+        }
+        else if(average == 1){
+            star1.setImageResource(R.drawable.star_yellow);
+            star2.setImageResource(R.drawable.star_white);
+            star3.setImageResource(R.drawable.star_white);
+            star4.setImageResource(R.drawable.star_white);
+            star5.setImageResource(R.drawable.star_white);
+        }
+        else if(average > 1 && average < 2){
+            star1.setImageResource(R.drawable.star_yellow);
+            star2.setImageResource(R.drawable.half_star);
+            star3.setImageResource(R.drawable.star_white);
+            star4.setImageResource(R.drawable.star_white);
+            star5.setImageResource(R.drawable.star_white);
+        }
+        else if(average == 2){
+            star1.setImageResource(R.drawable.star_yellow);
+            star2.setImageResource(R.drawable.star_yellow);
+            star3.setImageResource(R.drawable.star_white);
+            star4.setImageResource(R.drawable.star_white);
+            star5.setImageResource(R.drawable.star_white);
+        }
+        else if(average > 2 && average < 3){
+            star1.setImageResource(R.drawable.star_yellow);
+            star2.setImageResource(R.drawable.star_yellow);
+            star3.setImageResource(R.drawable.half_star);
+            star4.setImageResource(R.drawable.star_white);
+            star5.setImageResource(R.drawable.star_white);
+        }
+        else if(average == 3){
+            star1.setImageResource(R.drawable.star_yellow);
+            star2.setImageResource(R.drawable.star_yellow);
+            star3.setImageResource(R.drawable.star_yellow);
+            star4.setImageResource(R.drawable.star_white);
+            star5.setImageResource(R.drawable.star_white);
+        }
+        else if(average > 3 && average < 4){
+            star1.setImageResource(R.drawable.star_yellow);
+            star2.setImageResource(R.drawable.star_yellow);
+            star3.setImageResource(R.drawable.star_yellow);
+            star4.setImageResource(R.drawable.half_star);
+            star5.setImageResource(R.drawable.star_white);
+        }
+        else if(average == 4){
+            star1.setImageResource(R.drawable.star_yellow);
+            star2.setImageResource(R.drawable.star_yellow);
+            star3.setImageResource(R.drawable.star_yellow);
+            star4.setImageResource(R.drawable.star_yellow);
+            star5.setImageResource(R.drawable.star_white);
+        }
+        else if(average > 4 && average < 5){
+            star1.setImageResource(R.drawable.star_yellow);
+            star2.setImageResource(R.drawable.star_yellow);
+            star3.setImageResource(R.drawable.star_yellow);
+            star4.setImageResource(R.drawable.star_yellow);
+            star5.setImageResource(R.drawable.half_star);
+        }
+        else {
+            star1.setImageResource(R.drawable.star_yellow);
+            star2.setImageResource(R.drawable.star_yellow);
+            star3.setImageResource(R.drawable.star_yellow);
+            star4.setImageResource(R.drawable.star_yellow);
+            star5.setImageResource(R.drawable.star_yellow);
         }
     }
 

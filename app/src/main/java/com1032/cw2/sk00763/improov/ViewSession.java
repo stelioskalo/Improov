@@ -82,6 +82,7 @@ public class ViewSession extends Activity implements PopupMenu.OnMenuItemClickLi
                 else {
                     i.putExtra("from", getIntent().getStringExtra("student"));
                 }
+                i.putExtra("intent", "session");
                 startActivity(i);
             }
         });

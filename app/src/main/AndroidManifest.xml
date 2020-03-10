@@ -170,7 +170,11 @@
         <activity
             android:name=".ReportUser"
             android:label="@string/title_activity_report_user"
-            android:theme="@style/AppTheme.popup"/>
+            android:theme="@style/AppTheme.popup" />
+        <activity
+            android:name=".ReviewUser"
+            android:label="@string/title_activity_review_user"
+            android:theme="@style/AppTheme.popup"></activity>
     </application>
 
 </manifest>
