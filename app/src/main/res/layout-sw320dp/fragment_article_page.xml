@@ -9,8 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp"
         android:layout_gravity="center"
+        android:padding="15dp"
+        android:background="#233d4d"
         android:gravity="center">
 
         <ImageView
@@ -27,12 +28,13 @@
             android:layout_gravity="center"
             android:background="@drawable/search_layout"
             android:hint="Search..."
+            android:backgroundTint="#fff"
             android:padding="5sp" />
 
         <ImageView
             android:id="@+id/searchpicarticle"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:src="@drawable/search"/>
 

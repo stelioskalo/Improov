@@ -15,12 +15,14 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Login"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <meta-data
@@ -174,7 +176,10 @@
         <activity
             android:name=".ReviewUser"
             android:label="@string/title_activity_review_user"
-            android:theme="@style/AppTheme.popup"></activity>
+            android:theme="@style/AppTheme.popup" />
+        <activity
+            android:name=".ViewReview"
+            android:label="@string/title_activity_view_review"></activity>
     </application>
 
 </manifest>

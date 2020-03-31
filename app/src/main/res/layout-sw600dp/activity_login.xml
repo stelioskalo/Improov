@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#94A9D8"
+    android:background="#275A7A"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".Login">
@@ -50,7 +50,7 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="240dp"
-        android:background="#2E4477"
+        android:background="#000"
         android:text="@string/login"
         android:textColor="#fff"
         android:textSize="30sp" />

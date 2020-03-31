@@ -113,12 +113,12 @@ public class Register extends AppCompatActivity {
         this.m_dialog.setMessage("Registering Account");
         this.m_dialog.show();
 
-        // check to see if password meets the firebase requirements of at least 6 characters long
-        if(getPass().length() >= 6) {
+        // check to see if password meets the requirements of at least 10 characters long
+        if(getPass().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=\\\\S+$).{10,}$")) {
             // check if the passwords match
             if (matchPass()) {
                 //check if the email is valid
-                if(validateEmail()) {
+                if(getEmail().matches("^[a-zA-Z0-9]*\\@[a-zA-Z0-9]*.com$")) {
 
                     // if so, register an account
                     m_auth.createUserWithEmailAndPassword(getEmail(), getPass()).
@@ -191,8 +191,8 @@ public class Register extends AppCompatActivity {
                 String lastname = firstLetter2 + getSurname().substring(1).toLowerCase();
                 Log.d("FIRSTNAME", firstname);
                 reference.child("user").child(fUser.getUid()).child("name").setValue(firstname);
-                reference.child("user").child(fUser.getUid()).child("id").setValue(fUser.getUid());
                 reference.child("user").child(fUser.getUid()).child("surname").setValue(lastname);
+                reference.child("user").child(fUser.getUid()).child("id").setValue(fUser.getUid());
                 reference.child("user").child(fUser.getUid()).child("firsttime").setValue("yes");
                 reference.child("user").child(fUser.getUid()).child("calling").setValue("");
                 reference.child("user").child(fUser.getUid()).child("ringing").setValue("");

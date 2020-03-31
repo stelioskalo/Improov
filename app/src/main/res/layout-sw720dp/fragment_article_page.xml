@@ -9,22 +9,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp"
+        android:padding="15dp"
+        android:background="#233d4d"
         android:layout_gravity="center"
         android:gravity="center">
 
         <ImageView
             android:id="@+id/viewprofile"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:src="@drawable/viewprofile"
             android:layout_marginRight="10dp"/>
 
         <EditText
             android:id="@+id/searcharticle"
-            android:layout_width="670dp"
+            android:layout_width="630dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:backgroundTint="#fff"
             android:background="@drawable/search_layout"
             android:textSize="32dp"
             android:hint="Search..."
@@ -32,8 +34,8 @@
 
         <ImageView
             android:id="@+id/searchpicarticle"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginLeft="10dp"
             android:src="@drawable/search"/>
 

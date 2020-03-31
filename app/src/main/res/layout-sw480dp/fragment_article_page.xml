@@ -8,33 +8,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:gravity="center">
+        android:background="#233d4d"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="15dp">
 
         <ImageView
             android:id="@+id/viewprofile"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/viewprofile"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:src="@drawable/viewprofile" />
 
         <EditText
             android:id="@+id/searcharticle"
-            android:layout_width="390dp"
+            android:layout_width="360dp"
             android:layout_height="35sp"
             android:layout_gravity="center"
+            android:backgroundTint="#fff"
             android:background="@drawable/search_layout"
             android:hint="Search..."
             android:padding="5sp" />
 
         <ImageView
             android:id="@+id/searchpicarticle"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/search"/>
+            android:src="@drawable/search" />
 
     </LinearLayout>
 

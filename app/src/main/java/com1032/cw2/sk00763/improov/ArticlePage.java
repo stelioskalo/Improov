@@ -140,7 +140,8 @@ public class ArticlePage extends Fragment implements ArticleListAdapter.ArticleA
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
                             final Article article = ds.getValue(Article.class);
-                            if (article.getCategory().matches(user.getTopic1()) || article.getCategory().matches(user.getTopic2()) || article.getCategory().matches(user.getTopic3())
+                            if (article.getCategory().matches(user.getTopic1()) || article.getCategory().matches(user.getTopic2())
+                                    || article.getCategory().matches(user.getTopic3())
                                     || article.getCategory().matches(user.getTopic4()) || article.getCategory().matches(user.getTopic5())) {
                                 if(searchtype == 2 && article.getTitle().toLowerCase().contains(lowerCaseSearch)) {
                                     articles.add(article);

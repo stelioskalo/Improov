@@ -160,7 +160,8 @@ public class ReadyToPayActivity extends AppCompatActivity {
                             m_ref.child("payments").child(paymentid).child("howmuch").setValue(paymentAmount);
                             m_ref.child("payments").child(paymentid).child("coachpaid").setValue("no");
                             m_ref.child("user").child(getIntent().getStringExtra("from")).child("payments").child(paymentid).setValue(true);
-                            m_ref.child("user").child(m_user.getUid()).child("notification").child(getIntent().getStringExtra("notification")).child("pending").setValue("no");
+                            m_ref.child("user").child(m_user.getUid()).child("notification").child(getIntent()
+                                    .getStringExtra("notification")).child("pending").setValue("no");
                             m_ref.child("session").child(getIntent().getStringExtra("session")).child("paid").setValue("yes");
 
                             Calendar mcurrentTime = Calendar.getInstance();

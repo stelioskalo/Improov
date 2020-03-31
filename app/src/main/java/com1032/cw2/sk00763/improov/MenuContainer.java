@@ -95,7 +95,8 @@ public class MenuContainer extends AppCompatActivity {
                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
                             Notification notification = ds.getValue(Notification.class);
                             if (notification.getType() != null) {
-                                if (notification.getType().matches("acceptedRequest") && !notification.getFree().matches("yes")) {
+                                if (notification.getType().matches("acceptedRequest") && !notification.getFree().matches("yes")
+                                        && notification.getPending().matches("yes")) {
                                     Log.d("empikame", "nai");
                                     Intent intent = new Intent(MenuContainer.this, ReadyToPayActivity.class);
                                     intent.putExtra("from", notification.getFrom());

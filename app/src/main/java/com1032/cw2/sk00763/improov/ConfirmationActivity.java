@@ -148,7 +148,6 @@ public class ConfirmationActivity extends Activity {
                                     double total = 0;
                                     for(DataSnapshot ds: dataSnapshot.getChildren()) {
                                         Payments payment = ds.getValue(Payments.class);
-                                        Log.d("gamoto", payment.getCoachpaid().toString());
                                         if(payment.getCoachpaid().matches("no") && payment.getCoach().matches(m_user.getUid())){
                                             m_ref.child("payments").child(ds.getKey()).child("coachpaid").setValue("yes");
                                         }

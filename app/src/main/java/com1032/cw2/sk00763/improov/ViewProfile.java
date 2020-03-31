@@ -128,6 +128,15 @@ public class ViewProfile extends AppCompatActivity implements PopupMenu.OnMenuIt
             }
         });
 
+        reviewNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ViewProfile.this, ViewReview.class);
+                i.putExtra("from", getIntent().getStringExtra("from"));
+                startActivity(i);
+            }
+        });
+
         populateViews();
 
     }
