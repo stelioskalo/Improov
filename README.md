@@ -21,14 +21,14 @@ For the undertaking of the actual session, three ways of communicating were impl
 Instant messaging were done using firebase as the database for sending and receiving messages, were Audio and Video calls were implemented
 using WebRTC.
 
-# Separate Programs for this app
+## Separate Programs for this app
 An Admin UI was separately implemented using PyCharm were it allowed admins to create new discussion on behalf of the application, add new articels
 and view users reports. 
 
 An Article program was also developed using python, were the admin could insert a URL that would retrieve an article from a website
 using an HTML parser. An AI model was trained in order to classify the category of the article.
 
-# Technologies used in this repository
+## Technologies used in this repository
 Android studio (Java)
 
 Facebook Login API
@@ -42,3 +42,6 @@ WebRTC
 PayPal SDK
 
 JavaScript (Firebase Functions)
+
+## How to run
+This project can be run using the Android Studio IDE
