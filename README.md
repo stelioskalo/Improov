@@ -44,4 +44,4 @@ PayPal SDK
 JavaScript (Firebase Functions)
 
 ## How to run
-This project can be run using the Android Studio IDE
+This project can be run using the Android Studio IDE.
